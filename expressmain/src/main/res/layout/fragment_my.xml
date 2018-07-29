@@ -50,10 +50,13 @@
         android:text="@string/my_often_address"
         android:gravity="center"
         android:textSize="@dimen/dimen16" />
-    <View
-        android:id="@+id/view_2"
+    <TextView
+        android:id="@+id/tv_up_version"
         android:layout_width="match_parent"
-        android:layout_height="1dp"
+        android:layout_height="@dimen/height50"
+        android:gravity="center"
+        android:text="@string/up_version"
+        android:textSize="@dimen/dimen16"
         android:background="@color/green300"/>
     <TextView
         android:id="@+id/tv_exit"

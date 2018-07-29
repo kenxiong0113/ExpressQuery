@@ -33,11 +33,13 @@
     <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
     <uses-permission android:name="android.permission.CAMERA" />
 
+    <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="android.permission.FLASHLIGHT" />
+
     <uses-feature android:name="android.hardware.camera" />
     <uses-feature android:name="android.hardware.camera.autofocus" />
 
-    <uses-permission android:name="android.permission.VIBRATE" />
-    <uses-permission android:name="android.permission.FLASHLIGHT" />
+
 
     <application
         android:name=".base.MyApplication"
@@ -86,7 +88,7 @@
         <activity android:name=".send.myorder.v.MyOrderActivity" />
         <activity android:name=".management.AddAddressActivity" />
         <activity android:name=".management.AddressBookActivity" />
-        <activity android:name=".management.address.v.ManageAddressActivity"/>
+        <activity android:name=".management.address.v.ManageAddressActivity" />
     </application>
 
 </manifest>

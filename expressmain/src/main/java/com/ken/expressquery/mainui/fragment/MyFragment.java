@@ -9,7 +9,6 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.ken.expressquery.R;
 import com.ken.expressquery.mainui.activity.LoginActivity;
@@ -26,6 +25,7 @@ import cn.bmob.v3.BmobUser;
  */
 
 public class MyFragment extends Fragment {
+    private static final String TAG = "MyFragment";
     @BindView(R.id.img_head)
     ImageView imgHead;
     @BindView(R.id.tv_username)
@@ -39,9 +39,10 @@ public class MyFragment extends Fragment {
     @BindView(R.id.tv_exit)
     TextView tvExit;
     Unbinder unbinder;
+    @BindView(R.id.tv_up_version)
+    TextView tvUpVersion;
     private View view;
     private BmobUser bmobUser;
-    private String TAG = MyFragment.class.getName();
 
     public static MyFragment newInstance(String param1) {
         MyFragment fragment = new MyFragment();
@@ -51,7 +52,8 @@ public class MyFragment extends Fragment {
         return fragment;
     }
 
-    public MyFragment() {}
+    public MyFragment() {
+    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -75,17 +77,20 @@ public class MyFragment extends Fragment {
         }
     }
 
-    @OnClick({R.id.tv_my_often_address,R.id.tv_exit})
-    public void onLisenter(View view) {
+    @OnClick({R.id.tv_my_often_address, R.id.tv_exit, R.id.tv_up_version})
+    public void onListenter(View view) {
         int msg = view.getId();
         switch (msg) {
             case R.id.tv_my_often_address:
                 //我的常用地址
 
                 break;
+            case R.id.tv_up_version:
+
+                break;
             case R.id.tv_exit:
                 //清除缓存用户对象
-                if (bmobUser != null){
+                if (bmobUser != null) {
                     BmobUser.logOut();
                 }
                 startActivity(new Intent(getActivity(), LoginActivity.class));

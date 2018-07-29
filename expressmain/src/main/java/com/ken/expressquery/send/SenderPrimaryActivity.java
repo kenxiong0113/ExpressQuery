@@ -14,6 +14,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.util.LogTime;
 import com.ken.expressquery.R;
 import com.ken.expressquery.management.address.v.ManageAddressActivity;
 import com.ken.expressquery.base.BaseActivity;
@@ -63,7 +64,8 @@ public class SenderPrimaryActivity extends BaseActivity implements
     private Context mContext;
     private CommonFunctionsAdapter adapter;
     private LocationPre locationPre = new LocationPre(this);
-    private String TAG = SenderPrimaryActivity.class.getName();
+
+    private static final String TAG = "SenderPrimaryActivity";
     private LoadingDialog dialog;
     private int[] icon = {
             R.drawable.ic_send_express,
@@ -76,6 +78,7 @@ public class SenderPrimaryActivity extends BaseActivity implements
             "收件地址",
             "寄件地址"};
     private List<Map<String, Object>> commomList;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -107,30 +110,31 @@ public class SenderPrimaryActivity extends BaseActivity implements
             }
         });
     }
-/**
- * 设置adapter
- * */
-    private void setAdapter(){
-        adapter = new CommonFunctionsAdapter(mContext,initData());
+
+    /**
+     * 设置adapter
+     */
+    private void setAdapter() {
+        adapter = new CommonFunctionsAdapter(mContext, initData());
         gvHot.setAdapter(adapter);
         gvHot.setOnItemClickListener(this);
 
     }
-/**
- *
- * 处理数据
- * */
-private List<Map<String, Object>> initData(){
-    List<Map<String, Object>> list = new ArrayList<Map<String, Object>>();
-    for (int i = 0; i < icon.length; i++) {
-        Map<String, Object> map = new HashMap<String, Object>();
-        map.put("ItemImage", icon[i]);
-        map.put("ItemText", iconName[i]);
-        list.add(map);
-    }
-    return list;
 
-}
+    /**
+     * 处理数据
+     */
+    private List<Map<String, Object>> initData() {
+        List<Map<String, Object>> list = new ArrayList<Map<String, Object>>();
+        for (int i = 0; i < icon.length; i++) {
+            Map<String, Object> map = new HashMap<String, Object>();
+            map.put("ItemImage", icon[i]);
+            map.put("ItemText", iconName[i]);
+            list.add(map);
+        }
+        return list;
+
+    }
 
 
     /**
@@ -146,7 +150,7 @@ private List<Map<String, Object>> initData(){
     }
 
 
-    @OnClick({R.id.tv_location,R.id.rl_my_order,R.id.rl_id})
+    @OnClick({R.id.tv_location, R.id.rl_my_order, R.id.rl_id})
     public void onListener(View view) {
         switch (view.getId()) {
             case R.id.tv_location:
@@ -186,12 +190,13 @@ private List<Map<String, Object>> initData(){
         editor.putString("district", district);
         editor.putString("street", street);
         editor.putString("streetNum", streetNum);
-        editor.commit();
+        editor.apply();
     }
 
     @Override
     public void onFailure(String str) {
-        Toast.makeText(mContext, str, Toast.LENGTH_SHORT).show();
+        Log.e(TAG, "onFailure: "+str );
+        Toast.makeText(mContext, "定位失败，请检查应用权限！", Toast.LENGTH_SHORT).show();
     }
 
     @Override
@@ -203,27 +208,27 @@ private List<Map<String, Object>> initData(){
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-            switch (position){
-                case 0:
-                    startActivity(new Intent(mContext, SendExpressActivity.class));
-                    break;
-                case 1:
-                    Toast.makeText(mContext, "附近网点", Toast.LENGTH_SHORT).show();
-                    break;
-                case 2:
+        switch (position) {
+            case 0:
+                startActivity(new Intent(mContext, SendExpressActivity.class));
+                break;
+            case 1:
+                Toast.makeText(mContext, "附近网点", Toast.LENGTH_SHORT).show();
+                break;
+            case 2:
 //                    收件地址
-                    Intent intent = new Intent(SenderPrimaryActivity.this, ManageAddressActivity.class);
-                    intent.putExtra("AddressType",2);
-                    startActivity(intent);
-                    break;
-                case 3:
+                Intent intent = new Intent(SenderPrimaryActivity.this, ManageAddressActivity.class);
+                intent.putExtra("AddressType", 2);
+                startActivity(intent);
+                break;
+            case 3:
 //                    寄件地址
-                    Intent intent1 = new Intent(SenderPrimaryActivity.this, ManageAddressActivity.class);
-                    intent1.putExtra("AddressType",1);
-                    startActivity(intent1);
-                    break;
-                default:
-                    break;
-            }
+                Intent intent1 = new Intent(SenderPrimaryActivity.this, ManageAddressActivity.class);
+                intent1.putExtra("AddressType", 1);
+                startActivity(intent1);
+                break;
+            default:
+                break;
+        }
     }
 }

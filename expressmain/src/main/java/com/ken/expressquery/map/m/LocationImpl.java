@@ -2,6 +2,7 @@ package com.ken.expressquery.map.m;
 
 import android.content.Context;
 import android.util.Log;
+
 import com.amap.api.location.AMapLocation;
 import com.amap.api.location.AMapLocationClient;
 import com.amap.api.location.AMapLocationClientOption;
@@ -13,7 +14,8 @@ import com.ken.expressquery.map.OnLocationFinishListener;
  * 高德地图定位功能
  */
 
-public  class LocationImpl  implements LocationModel{
+public class LocationImpl implements LocationModel {
+    private static final String TAG = "LocationImpl";
     //省份//城市//城区//街道//门牌号
     private String province;
     private String city;
@@ -33,12 +35,13 @@ public  class LocationImpl  implements LocationModel{
      */
     private AMapLocationListener mLocationListener = null;
     /**
-     *  声明AMapLocationClientOption对象
+     * 声明AMapLocationClientOption对象
      */
 
     private AMapLocationClientOption mLocationOption = null;
+
     @Override
-    public void location(Context mContext, final OnLocationFinishListener onLocationFinishListener){
+    public void location(Context mContext, final OnLocationFinishListener onLocationFinishListener) {
         //初始化定位
         mLocationClient = new AMapLocationClient(mContext);
         //初始化AMapLocationClientOption对象
@@ -46,7 +49,7 @@ public  class LocationImpl  implements LocationModel{
 
         /*** 设置定位场景，目前支持三种场景（签到、出行、运动，默认无场景）*/
         mLocationOption.setLocationPurpose(AMapLocationClientOption.AMapLocationPurpose.SignIn);
-        if(null != mLocationClient){
+        if (null != mLocationClient) {
             mLocationClient.setLocationOption(mLocationOption);
             //设置场景模式后最好调用一次stop，再调用start以保证场景模式生效
             mLocationClient.stopLocation();
@@ -67,8 +70,8 @@ public  class LocationImpl  implements LocationModel{
         mLocationListener = new AMapLocationListener() {
             @Override
             public void onLocationChanged(AMapLocation aMapLocation) {
-                if (aMapLocation != null){
-                    if (aMapLocation.getErrorCode() == 0){
+                if (aMapLocation != null) {
+                    if (aMapLocation.getErrorCode() == 0) {
 //                        省份
                         province = aMapLocation.getProvince();
 //                        城市
@@ -83,12 +86,11 @@ public  class LocationImpl  implements LocationModel{
 
                         longitude = aMapLocation.getLongitude();
                         latitude = aMapLocation.getLatitude();
-                        onLocationFinishListener.onLocationSuccess(province,city,district,street,streetNum);
-                        Log.e("LocationImpl", province + city);
-                    }else {
+                        onLocationFinishListener.onLocationSuccess(province, city, district, street, streetNum);
+                        Log.e(TAG, "onLocationChanged: "+province + city);
+                    } else {
                         onLocationFinishListener.onLocationFailure(aMapLocation.getErrorInfo());
-                        Log.e("LocationImpl", "aMapLocation.getErrorCode():" +
-                                aMapLocation.getErrorCode()+aMapLocation.getErrorInfo());
+                        Log.e(TAG, "onLocationChanged: "+ aMapLocation.getErrorCode() + aMapLocation.getErrorInfo() );
                     }
                 }
             }
@@ -96,8 +98,9 @@ public  class LocationImpl  implements LocationModel{
         /** 设置定位监听回调*/
         mLocationClient.setLocationListener(mLocationListener);
     }
+
     @Override
-    public void destroy(){
+    public void destroy() {
         mLocationClient.onDestroy();
     }
 

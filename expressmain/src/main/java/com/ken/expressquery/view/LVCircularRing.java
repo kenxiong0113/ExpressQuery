@@ -8,9 +8,6 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.RectF;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.v7.app.AlertDialog;
 import android.util.AttributeSet;
 import android.view.View;
 import android.view.animation.LinearInterpolator;
@@ -21,7 +18,7 @@ import android.view.animation.LinearInterpolator;
  */
 
 public class LVCircularRing extends View {
-
+    private static final String TAG = "LVCircularRing";
     private float mWidth = 0f;
     private float mPadding = 0f;
     private float startAngle = 0f;
@@ -44,11 +41,9 @@ public class LVCircularRing extends View {
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
 
-        if (getMeasuredWidth() > getHeight()){
+        if (getMeasuredWidth() > getHeight()) {
             mWidth = getMeasuredHeight();
-        }
-
-        else{
+        } else {
             mWidth = getMeasuredWidth();
         }
 
@@ -62,8 +57,8 @@ public class LVCircularRing extends View {
         canvas.drawCircle(mWidth / 2, mWidth / 2, mWidth / 2 - mPadding, mPaint);
         mPaint.setColor(Color.WHITE);
         RectF rectF = new RectF(mPadding, mPadding, mWidth - mPadding, mWidth - mPadding);
-        canvas.drawArc(rectF, startAngle, 100
-                , false, mPaint);//第四个参数是否显示半径
+        //第四个参数是否显示半径
+        canvas.drawArc(rectF, startAngle, 100, false, mPaint);
 
     }
 
@@ -97,8 +92,9 @@ public class LVCircularRing extends View {
 
         valueAnimator.setDuration(time);
         valueAnimator.setInterpolator(new LinearInterpolator());
-        valueAnimator.setRepeatCount(ValueAnimator.INFINITE);//无限循环
-        valueAnimator.setRepeatMode(ValueAnimator.RESTART);//
+        //无限循环
+        valueAnimator.setRepeatCount(ValueAnimator.INFINITE);
+        valueAnimator.setRepeatMode(ValueAnimator.RESTART);
 
         valueAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
             @Override

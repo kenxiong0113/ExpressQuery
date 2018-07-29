@@ -14,6 +14,7 @@
     <string name="often_courier_info">常用快递员信息</string>
     <string name="exit">退出</string>
     <string name="go_login">去登录</string>
+    <string name="up_version">版本更新</string>
 
     <!--登录注册界面-->
     <string name="username">用户名</string>
