@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+<RelativeLayout
+    android:id="@+id/user_layout"
+    android:layout_width="match_parent"
+    android:layout_height="160dp"
+    android:background="@color/primary"
+    >
+
+    <ImageView
+        android:id="@+id/img_head"
+        android:layout_width="72dp"
+        android:layout_height="72dp"
+        android:layout_marginTop="44dp"
+        android:layout_marginStart="20dp"
+        android:background="@drawable/ic_head"
+
+        />
+    <TextView
+        android:id="@+id/tv_username"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toEndOf="@+id/img_head"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="50dp"
+        android:maxLines="1"
+        android:textSize="@dimen/dimen20"
+        android:text="hello world!"
+        />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/hello"
+        android:layout_below="@+id/tv_username"
+        android:layout_alignStart="@+id/tv_username"
+        android:textSize="@dimen/dimen20"
+        android:layout_marginTop="10dp"
+        />
+</RelativeLayout>
+    <TextView
+        android:id="@+id/tv_my_often_address"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/height50"
+        android:background="@color/orange"
+        android:text="@string/my_often_address"
+        android:gravity="center"
+        android:textSize="@dimen/dimen16" />
+    <View
+        android:id="@+id/view_2"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/green300"/>
+    <TextView
+        android:id="@+id/tv_exit"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/height50"
+        android:background="@color/red"
+        android:text="@string/go_login"
+        android:gravity="center"
+        android:textColor="@color/white"
+        android:textSize="@dimen/dimen16"/>
+</LinearLayout>

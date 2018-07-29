@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:layout_marginBottom="56dp"
+    >
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/pop_layout"
+        >
+
+        <TextView
+            android:id="@+id/tv_ad"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="广告位招租"
+            android:textSize="50dp"
+            android:gravity="center"
+            android:textColor="@color/red"
+            android:textStyle="bold|italic"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="84dp" />
+        <TextView
+            android:id="@+id/tv_tel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="tel:13687525216"
+            android:layout_below="@id/tv_ad"
+            android:layout_centerHorizontal="true"
+            android:textColor="@color/red"
+            android:layout_marginTop="10dp"
+            android:textSize="20dp"
+            />
+
+        <TextView
+            android:id="@+id/tv_p"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="联系人：快递熊"
+            android:layout_below="@id/tv_tel"
+            android:layout_centerHorizontal="true"
+            android:textColor="@color/red"
+            android:layout_marginTop="10dp"
+            android:textSize="20dp"
+            />
+
+    </RelativeLayout>
+
+<LinearLayout
+    android:id="@+id/pop_layout"
+    android:orientation="vertical"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:layout_alignParentBottom="true"
+    android:background="@color/white"
+    >
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/darkgray"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:text="@string/select"
+        android:gravity="center"
+        android:textSize="@dimen/dimen20"
+        android:background="@color/orange"
+        />
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/darkgray"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:orientation="horizontal">
+    <Spinner
+        android:id="@+id/spinner_sheng"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/primary"
+        android:layout_weight="1">
+    </Spinner>
+    <View
+        android:layout_width="1dp"
+        android:layout_height="match_parent"
+        android:background="@color/dimkgray">
+
+    </View>
+    <Spinner
+        android:id="@+id/spinner_shi"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:background="@color/primary"
+        >
+
+    </Spinner>
+        <View
+            android:layout_width="1dp"
+            android:layout_height="match_parent"
+            android:background="@color/dimkgray">
+
+        </View>
+        <Spinner
+            android:id="@+id/spinner_qu_xian"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_weight="1"
+            android:background="@color/primary"
+            >
+
+        </Spinner>
+    </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="140dp">
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/darkgray"/>
+    <Button
+        android:id="@+id/btn_select"
+        android:layout_width="100dp"
+        android:layout_height="40dp"
+        android:text="@string/sure"
+        android:background="@drawable/btn_red"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true" />
+    </RelativeLayout>
+</LinearLayout>
+</RelativeLayout>

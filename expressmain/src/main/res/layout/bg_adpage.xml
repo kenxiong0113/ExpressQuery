@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_alignParentBottom="true"
+    android:layout_height="80dp">
+    <View
+        android:id="@+id/view_divider"
+        android:layout_width="match_parent"
+        android:layout_height="3dp"
+        android:background="@drawable/bg_divider" />
+    <RelativeLayout
+        android:id="@+id/rl_ad"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true">
+        <ImageView
+            android:id="@+id/img_logo"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:background="@mipmap/logo"/>
+        <TextView
+            android:id="@+id/tv_app_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="快递熊"
+            android:textColor="@color/black"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:layout_centerVertical="true"
+            android:layout_toEndOf="@+id/img_logo"
+            android:layout_marginStart="10dp"/>
+        <TextView
+            android:id="@+id/tv_ad"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toEndOf="@+id/tv_app_name"
+            android:text="快递业务查询APP"
+            android:layout_marginStart="10dp"
+            android:layout_centerVertical="true"/>
+    </RelativeLayout>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/rl_ad"
+        android:text="@string/version"
+        android:textSize="12sp"
+        android:layout_centerHorizontal="true"/>
+</RelativeLayout>

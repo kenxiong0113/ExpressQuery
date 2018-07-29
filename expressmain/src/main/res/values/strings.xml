@@ -1,0 +1,71 @@
+<resources>
+    <string name="app_name">快递熊</string>
+
+    <!--底部导航栏-->
+    <string name="shouye">首页</string>
+    <string name="find">快递服务</string>
+    <string name="iiiegal_inquiry">违章查询</string>
+    <string name="my">我的</string>
+
+    <!--界面-我的-->
+    <string name="hello">你 好！</string>
+    <string name="my_send_order">我的寄件订单</string>
+    <string name="my_often_address">我的常用地址</string>
+    <string name="often_courier_info">常用快递员信息</string>
+    <string name="exit">退出</string>
+    <string name="go_login">去登录</string>
+
+    <!--登录注册界面-->
+    <string name="username">用户名</string>
+    <string name="password">密码</string>
+    <string name="phone">电话</string>
+    <string name="email">电子邮箱</string>
+    <string name="login">登 录</string>
+    <string name="register">注册</string>
+    <string name="re_password">确认密码</string>
+    <string name="have_username">已有账号，返回登录</string>
+    <string name="tourists_login">直接登录</string>
+
+    <!--查询快递字符串-->
+    <string name="input_OrderCode">请输入快递单号</string>
+    <string name="select_Company">请选择快递公司</string>
+    <string name="kuaidi_Company">快递公司:</string>
+    <string name="orderCode">快递单号:</string>
+
+    <!--寄快递界面字符-->
+    <string name="destination">出发地：</string>
+    <string name="origin">目的地：</string>
+    <string name="recipient">收件人：</string>
+    <string name="contactNumber">联系电话：</string>
+    <string name="add">添加</string>
+    <string name="appointment">预约寄件</string>
+    <!--选择地址-->
+    <string name="select">请选择</string>
+    <string name="sure">确定</string>
+
+    <!--添加常用快递员-->
+    <string name="name">姓名</string>
+    <string name="area">地区</string>
+    <string name="cancel">取消</string>
+    <string name="address">地址</string>
+
+
+    <string name="state0">无物流信息</string>
+    <string name="state1"> </string>
+    <string name="state2">在途中</string>
+    <string name="state3">已签收</string>
+    <string name="state4">问题件</string>
+
+    <!--dialog 相关字符-->
+    <string name="loading">正在加载...</string>
+
+
+    <string name="logistics_details">物流详情</string>
+    <string name="history">历史查询记录</string>
+    <string name="query">查询</string>
+    <string name="customer_service">客服电话:</string>
+
+    <!--版权信息-->
+
+    <string name="version">Copyright © 2017-2018 Express Bear.All Rights Reserved</string>
+</resources>

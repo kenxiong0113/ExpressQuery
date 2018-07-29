@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<paths xmlns:android="http://schemas.android.com/apk/res/android" >
+
+  <!--  在项目的res目录中创建 res/xml/file_provider.xml 文件，
+        以对应上述provider中meta-data中所指定的文件(这里的文件名字可以随意起)，
+        但是必须在文件里面添加两个路径:-->
+   <!--有米sdk会将apk优先下载在sd卡中，如果sd卡不能使用，
+        则会使用应用私有缓存目录context.getCache()
+        因此需要开发者配置下面两个路径方便有米sdk在下载完apk之后启动apk的安装页面 -->
+    <cache-path
+        name="cache"
+        path="." />
+    <external-path
+        name="external"
+        path="." />
+</paths >

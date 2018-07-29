@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <ImageView
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_margin="10dp"
+        android:layout_marginBottom="10dp"
+        android:id="@+id/img_logo" />
+    <TextView
+        android:id="@+id/tv_name"
+        android:text="快递公司"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/dimen16"
+        android:layout_toEndOf="@+id/img_logo"
+        android:layout_alignTop="@+id/img_logo"
+        />
+    <TextView
+        android:id="@+id/tv_no"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toEndOf="@+id/tv_name"
+        android:layout_alignBottom="@+id/tv_name"
+        android:layout_marginStart="20dp"
+        android:textColor="@color/colorPrimary"
+        android:text="6523562983759"
+        android:textSize="@dimen/dimen16" />
+    <!--最后路径-->
+    <TextView
+        android:id="@+id/tv_content"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tv_name"
+        android:layout_alignStart="@+id/tv_name"
+        android:layout_marginTop="6dp"
+        android:textSize="@dimen/dimen16"
+        android:text="时间就俯瞰风景收款方式开局到佛
+        塑科技东方时空觉得你富士康绝地反
+        击神打法金克斯的福克斯的反馈骚粉色方式" />
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="3dp"
+        android:background="@drawable/bg_divider"
+        android:layout_below="@+id/tv_content"/>
+</RelativeLayout>

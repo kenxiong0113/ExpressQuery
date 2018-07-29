@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    >
+
+    <!-- 左边 -->
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        >
+        <!-- 上面的竖线 -->
+        <View
+            android:id="@+id/view_top_line"
+            android:layout_width="2dp"
+            android:layout_height="15dp"
+            android:background="@color/darkgray"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="-1dp"
+            />
+
+        <!-- 圆点 -->
+        <ImageView
+            android:id="@+id/iv_expres_spot"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:background="@drawable/ic_point_black"
+            android:layout_marginBottom="2dp"
+            android:layout_marginTop="2dp"
+            />
+        <View
+            android:layout_width="2dp"
+            android:layout_height="wrap_content"
+            android:background="@color/darkgray"
+            android:layout_gravity="center_horizontal"
+            />
+
+    </LinearLayout>
+
+    <!-- 右边 -->
+    <LinearLayout
+        android:layout_weight="1"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="10dp"
+
+        >
+        <TextView
+            android:id="@+id/tv_express_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="[海口市] 快件已到达[海口桂林洋分部],业务员包裹已到大学城代理点请过来取正在第1次派件 电话:15501907999 请保持电话畅通、耐心等待"
+            android:lineSpacingExtra="2dp"
+            android:textSize="16dp"
+            android:textColor="@color/black"
+            android:textIsSelectable="true"
+            />
+
+        <TextView
+            android:id="@+id/tv_express_time"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="16dp"
+            android:textColor="@color/black"
+            android:text="2016年4月27日 00:27:45"
+            android:textIsSelectable="true"
+            android:paddingBottom="2dp"
+            />
+
+        <View
+            android:layout_width="match_parent"
+            android:background="@color/darkgray"
+            android:layout_height="1dp"
+            />
+    </LinearLayout>
+
+
+</LinearLayout>

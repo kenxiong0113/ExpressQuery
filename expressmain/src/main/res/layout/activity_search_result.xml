@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white">
+
+    <RelativeLayout
+        android:id="@+id/rl_top"
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:background="@color/blue100">
+        <ImageView
+            android:id="@+id/img_type_logo"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_marginStart="10dp"
+            android:layout_centerVertical="true" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toEndOf="@+id/img_type_logo"
+            android:id="@+id/tv_company"
+            android:layout_marginStart="10dp"
+            android:layout_alignTop="@+id/img_type_logo"
+            android:textColor="@color/white"
+            android:layout_marginTop="2dp" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toEndOf="@+id/img_type_logo"
+            android:id="@+id/tv_customer_service"
+            android:layout_marginStart="10dp"
+            android:layout_alignTop="@+id/img_type_logo"
+            android:textColor="@color/white"
+            android:text="@string/customer_service"
+            android:visibility="gone"
+            android:layout_marginTop="2dp" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/tv_phone"
+            android:layout_marginStart="10dp"
+            android:layout_alignTop="@+id/img_type_logo"
+            android:layout_toEndOf="@+id/tv_customer_service"
+            android:textColor="@color/orangeRed"
+            android:autoLink="phone"
+            android:textStyle="bold"
+            android:layout_marginTop="2dp" />
+<!--快到公司和单号-->
+        <TextView
+            android:id="@+id/tv_type_and_no"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="1111111111"
+            android:textSize="@dimen/dimen16"
+            android:layout_toEndOf="@+id/img_type_logo"
+            android:textColor="@color/white"
+            android:layout_alignBottom="@+id/img_type_logo"
+            android:layout_marginBottom="2dp"
+            android:layout_alignStart="@+id/tv_company"/>
+    </RelativeLayout>
+  <!--物流进度状态-->
+    <include layout="@layout/express_progress"
+        android:id="@+id/layout_state"/>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="10dp"
+        android:id="@+id/view"
+        android:layout_below="@+id/layout_state"
+        android:background="@color/gray100"/>
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rv_result"
+        android:layout_below="@+id/view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        />
+</RelativeLayout>

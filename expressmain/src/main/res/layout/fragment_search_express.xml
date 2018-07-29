@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+    <!--输入快递单号-->
+        <EditText
+            android:id="@+id/et_Code"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/input_OrderCode"
+            android:layout_margin="8dp"
+            android:drawableStart="@drawable/ic_search"
+            android:background="@drawable/edit_sharp"
+            android:maxLength="20" />
+    <!-- 快递业务菜单栏 -->
+        <include layout="@layout/express_menu"
+            android:id="@+id/layout_menu" />
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="8dp"
+            android:background="@color/gray300"/>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <Button
+                android:id="@+id/btn_search"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/query"
+                android:textSize="@dimen/dimen18"
+                android:textColor="@color/white"
+                android:background="@drawable/btn_sharp"
+                android:layout_margin="10dp"
+                android:layout_centerHorizontal="true"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/tv_history"
+                android:text="@string/history"
+                android:background="@color/gray300"
+                android:layout_below="@+id/btn_search"/>
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/rv_history"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_below="@+id/tv_history"/>
+        </RelativeLayout>
+    </LinearLayout>
+
+</RelativeLayout>

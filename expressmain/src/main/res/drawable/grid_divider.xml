@@ -1,0 +1,16 @@
+<layer-list
+    xmlns:android="http://schemas.android.com/apk/res/android">
+    <item>
+        <shape>
+            <solid android:color="@color/gray200"/>
+        </shape>
+    </item>
+    <!--方向偏移量，整型-->
+    <item
+        android:right="1dp"
+        android:bottom="1dp">
+        <shape>
+            <solid android:color="@color/white"/>
+        </shape>
+    </item>
+</layer-list>
