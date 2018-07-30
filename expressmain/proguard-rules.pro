@@ -36,3 +36,7 @@
 -keep public class android.support.**{
     *;
 }
+#bugly的混淆规则
+-dontwarn com.tencent.bugly.**
+-keep public class com.tencent.bugly.**{*;}
+-keep class android.support.**{*;}

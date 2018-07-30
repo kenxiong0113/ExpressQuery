@@ -4,15 +4,11 @@ import android.app.Application;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 
-import com.ken.expressquery.BuildConfig;
 import com.ken.expressquery.greendao.DaoMaster;
 import com.ken.expressquery.greendao.DaoSession;
 import com.orhanobut.logger.AndroidLogAdapter;
 import com.orhanobut.logger.Logger;
-import com.tencent.tinker.loader.app.ApplicationLike;
-import com.tencent.tinker.loader.app.DefaultApplicationLike;
-import com.tinkerpatch.sdk.TinkerPatch;
-import com.tinkerpatch.sdk.loader.TinkerPatchApplicationLike;
+import com.tencent.bugly.Bugly;
 import com.uuzuche.lib_zxing.activity.ZXingLibrary;
 
 import es.dmoral.toasty.Toasty;
@@ -23,7 +19,6 @@ import es.dmoral.toasty.Toasty;
  */
 
 public class MyApplication extends Application {
-    private ApplicationLike tinkerApplicationLike;
     @Override
     protected void attachBaseContext(Context base) {
         super.attachBaseContext(base);
@@ -44,7 +39,8 @@ public class MyApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
-        initTinker();
+//        初始化bugly
+        Bugly.init(getApplicationContext(), "09af291644", false);
         instances = this;
 //        初始化扫码库
         ZXingLibrary.initDisplayOpinion(this);
@@ -81,20 +77,6 @@ public class MyApplication extends Application {
         return db;
     }
 
-    private void initTinker() {
-        // 我们可以从这里获得Tinker加载过程的信息
-        if (BuildConfig.TINKER_ENABLE) {
-            tinkerApplicationLike = TinkerPatchApplicationLike.getTinkerPatchApplicationLike();
-
-            // 初始化TinkerPatch SDK
-            TinkerPatch.init(tinkerApplicationLike)
-                    .reflectPatchLibrary()
-                    .setPatchRollbackOnScreenOff(true)
-                    .setPatchRestartOnSrceenOff(true);
-
-            TinkerPatch.with().fetchPatchUpdate(true);
-        }
-    }
 
 
 }

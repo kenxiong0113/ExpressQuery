@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import com.ken.expressquery.R;
 import com.ken.expressquery.mainui.activity.LoginActivity;
+import com.tencent.bugly.beta.Beta;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -34,8 +35,6 @@ public class MyFragment extends Fragment {
     RelativeLayout userLayout;
     @BindView(R.id.tv_my_often_address)
     TextView tvMyOftenAddress;
-    @BindView(R.id.view_2)
-    View view2;
     @BindView(R.id.tv_exit)
     TextView tvExit;
     Unbinder unbinder;
@@ -78,7 +77,7 @@ public class MyFragment extends Fragment {
     }
 
     @OnClick({R.id.tv_my_often_address, R.id.tv_exit, R.id.tv_up_version})
-    public void onListenter(View view) {
+    public void onListener(View view) {
         int msg = view.getId();
         switch (msg) {
             case R.id.tv_my_often_address:
@@ -86,7 +85,7 @@ public class MyFragment extends Fragment {
 
                 break;
             case R.id.tv_up_version:
-
+                Beta.checkUpgrade(true,true);
                 break;
             case R.id.tv_exit:
                 //清除缓存用户对象
