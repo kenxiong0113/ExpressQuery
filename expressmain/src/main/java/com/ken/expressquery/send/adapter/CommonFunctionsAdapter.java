@@ -7,9 +7,9 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
+
 import com.ken.expressquery.R;
-import com.ken.expressquery.send.bean.Commonly;
-import java.util.ArrayList;
+
 import java.util.List;
 import java.util.Map;
 
@@ -17,12 +17,11 @@ import java.util.Map;
  * 寄快递模块 常用功能适配器
  *
  * @author by ken on 2018/5/29
- * */
+ */
 public class CommonFunctionsAdapter extends BaseAdapter {
     private List<Map<String, Object>> mItemList;
     private Context mContext;
     private int clickItem = -1;
-
 
 
     public CommonFunctionsAdapter(Context context, List<Map<String, Object>> listItem) {
@@ -33,6 +32,7 @@ public class CommonFunctionsAdapter extends BaseAdapter {
     public void setSelection(int position) {
         this.clickItem = position;
     }
+
     @Override
     public int getCount() {
         return mItemList.size();

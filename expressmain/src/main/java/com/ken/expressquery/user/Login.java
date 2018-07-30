@@ -11,11 +11,15 @@ import cn.bmob.v3.listener.SaveListener;
 
 public class Login {
     private static Login login = null;
-        private Login(){}
-    public static Login getLogin(){
-        if (login == null){
-            synchronized (Login.class){
-                if (login == null){
+    public Login.CallBack mCallBack;
+
+    private Login() {
+    }
+
+    public static Login getLogin() {
+        if (login == null) {
+            synchronized (Login.class) {
+                if (login == null) {
                     login = new Login();
                 }
             }
@@ -23,7 +27,7 @@ public class Login {
         return login;
     }
 
-    public void login(String username, String password, final CallBack callBack){
+    public void login(String username, String password, final CallBack callBack) {
         this.mCallBack = callBack;
         BmobUser user = new BmobUser();
         user.setUsername(username);
@@ -31,26 +35,27 @@ public class Login {
         user.login(new SaveListener<BmobUser>() {
             @Override
             public void done(BmobUser user, BmobException e) {
-                if (e == null){
+                if (e == null) {
                     callBack.success();
-                }else {
-                    callBack.failure(e.getErrorCode()+e.getMessage());
+                } else {
+                    callBack.failure(e.getErrorCode() + e.getMessage());
                 }
             }
         });
 
     }
-        public Login.CallBack mCallBack;
-        public interface CallBack{
-            /**
-             * 成功
-             */
-            void success();
 
-            /**
-             * 失败
-             * @param error 后台访问失败错误码和错误信息
-             */
-            void failure(String error);
-        }
+    public interface CallBack {
+        /**
+         * 成功
+         */
+        void success();
+
+        /**
+         * 失败
+         *
+         * @param error 后台访问失败错误码和错误信息
+         */
+        void failure(String error);
+    }
 }

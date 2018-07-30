@@ -5,7 +5,7 @@ package com.ken.expressquery.threadpool;
  * 线程池工厂
  *
  * @author by ken on 2018/5/14
- * */
+ */
 public class ThreadPoolProxyFactory {
     static ThreadPoolProxy mNormalThreadPoolProxy;
     static ThreadPoolProxy mDownLoadThreadPoolProxy;

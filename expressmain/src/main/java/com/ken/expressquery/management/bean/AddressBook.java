@@ -8,7 +8,7 @@ import cn.bmob.v3.BmobObject;
  * 地址信息实体类
  *
  * @author by ken on 2018/5/27
- * */
+ */
 public class AddressBook extends BmobObject {
     String name;
     String phone;
@@ -17,8 +17,24 @@ public class AddressBook extends BmobObject {
     String id;
     Boolean addressType;
     Boolean defaultAddress;
-    /** CheckBox 是否被选中*/
+    /**
+     * CheckBox 是否被选中
+     */
     boolean select;
+
+    public AddressBook(String id, String name, String phone, String address,
+                       boolean addressType, boolean defaultAddress, boolean select) {
+        this.id = id;
+        this.name = name;
+        this.phone = phone;
+        this.address = address;
+        this.addressType = addressType;
+        this.defaultAddress = defaultAddress;
+        this.select = select;
+    }
+
+    public AddressBook() {
+    }
 
     public String getId() {
         return id;
@@ -58,20 +74,6 @@ public class AddressBook extends BmobObject {
 
     public void setUser(User user) {
         this.user = user;
-    }
-
-    public AddressBook(String id, String name, String phone, String address,
-            boolean addressType, boolean defaultAddress, boolean select) {
-        this.id = id;
-        this.name = name;
-        this.phone = phone;
-        this.address = address;
-        this.addressType = addressType;
-        this.defaultAddress = defaultAddress;
-        this.select = select;
-    }
-
-    public AddressBook() {
     }
 
     public String getName() {

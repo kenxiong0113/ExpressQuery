@@ -1,40 +1,38 @@
 package com.ken.expressquery.send.appointment.p;
 
-import android.util.Log;
-
 import com.ken.expressquery.send.appointment.OnSendFinishCallBack;
 import com.ken.expressquery.send.appointment.m.SendExpressImpl;
 import com.ken.expressquery.send.appointment.m.SendExpressModel;
 import com.ken.expressquery.send.appointment.v.SendExpressView;
-import com.orhanobut.logger.Logger;
 
 /**
  * 预约寄件Presenter层
  *
  * @author by ken on 2018/5/23
- * */
+ */
 public class SendExpressPre {
     private SendExpressView sendExpressView;
     private SendExpressModel sendExpress;
 
-    public SendExpressPre(SendExpressView sendExpressView){
+    public SendExpressPre(SendExpressView sendExpressView) {
         this.sendExpressView = sendExpressView;
         this.sendExpress = SendExpressImpl.getInstances();
     }
+
     public void send(
-                     String orderCode,
-                     String sendName,
-                     String sendPhone,
-                     String sendAddress,
-                     String receiveName,
-                     String receivePhone,
-                     String receiveAddress,
-                     String goodsType,
-                     String weight,
-                     String packageNum,
-                     String cost,
-                     String leave,
-                     String company){
+            String orderCode,
+            String sendName,
+            String sendPhone,
+            String sendAddress,
+            String receiveName,
+            String receivePhone,
+            String receiveAddress,
+            String goodsType,
+            String weight,
+            String packageNum,
+            String cost,
+            String leave,
+            String company) {
         sendExpress.send(orderCode,
                 sendName,
                 sendPhone,

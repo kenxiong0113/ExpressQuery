@@ -14,15 +14,16 @@ import java.util.List;
 public class AddressPre {
     private AddressView addressView;
     private AddressModel addressModel;
-    public AddressPre(AddressView addressView){
+
+    public AddressPre(AddressView addressView) {
         this.addressView = addressView;
         this.addressModel = AddressImpl.getInstances();
     }
 
     /**
      * 插入数据
-     * */
-    public void insert(User user, String name, String phone, String address, boolean type){
+     */
+    public void insert(User user, String name, String phone, String address, boolean type) {
         addressModel.insert(user, name, phone, address, type, new OnAddressFinishCallBack() {
             @Override
             public void onFinishFailure(String error) {
@@ -43,8 +44,8 @@ public class AddressPre {
 
     /**
      * 查询数据
-     * */
-    public void query(User user, boolean type){
+     */
+    public void query(User user, boolean type) {
         addressModel.query(user, type, new OnAddressFinishCallBack() {
             @Override
             public void onFinishFailure(String error) {
@@ -64,7 +65,7 @@ public class AddressPre {
 
     }
 
-    public void delete(String objectId){
+    public void delete(String objectId) {
         addressModel.delete(objectId, new OnAddressFinishCallBack() {
             @Override
             public void onFinishFailure(String error) {
@@ -84,8 +85,8 @@ public class AddressPre {
 
     }
 
-    public void update(String objectId, String name, String phone, String address){
-        addressModel.update(objectId,name,phone,address,new OnAddressFinishCallBack() {
+    public void update(String objectId, String name, String phone, String address) {
+        addressModel.update(objectId, name, phone, address, new OnAddressFinishCallBack() {
             @Override
             public void onFinishFailure(String error) {
                 addressView.onUpdateFailure(error);
@@ -103,7 +104,7 @@ public class AddressPre {
         });
     }
 
-    public void updateBatch(AddressBook b1,AddressBook b2){
+    public void updateBatch(AddressBook b1, AddressBook b2) {
         addressModel.updateBatch(b1, b2, new OnAddressFinishCallBack() {
             @Override
             public void onFinishFailure(String error) {

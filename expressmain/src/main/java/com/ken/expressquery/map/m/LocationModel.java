@@ -12,10 +12,12 @@ import com.ken.expressquery.map.OnLocationFinishListener;
 public interface LocationModel {
     /**
      * 高德定位接口
-     * @param mContext 定位的activity
+     *
+     * @param mContext                 定位的activity
      * @param onLocationFinishListener 定位回调接口
-     * */
+     */
     void location(Context mContext, OnLocationFinishListener onLocationFinishListener);
+
     /**
      * 销毁定位
      */

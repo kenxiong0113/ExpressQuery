@@ -1,8 +1,8 @@
 package com.ken.expressquery.send.result.m;
 
 import com.ken.expressquery.model.User;
-import com.ken.expressquery.send.result.OnResultFinishCallBack;
 import com.ken.expressquery.send.bean.SendExpressOrder;
+import com.ken.expressquery.send.result.OnResultFinishCallBack;
 import com.orhanobut.logger.Logger;
 
 import java.util.List;
@@ -17,14 +17,17 @@ import cn.bmob.v3.listener.SaveListener;
  * 返回预约寄件成功后把数据保存到bmob的实现类
  *
  * @author by ken on 2018/5/29
- * */
+ */
 public class IResult implements ResultM {
     private static IResult instances = null;
-            private IResult(){}
-    public static IResult getInstances(){
-        if (instances == null){
-            synchronized (IResult.class){
-                if (instances == null){
+
+    private IResult() {
+    }
+
+    public static IResult getInstances() {
+        if (instances == null) {
+            synchronized (IResult.class) {
+                if (instances == null) {
                     instances = new IResult();
                 }
             }
@@ -53,10 +56,10 @@ public class IResult implements ResultM {
         order.save(new SaveListener<String>() {
             @Override
             public void done(String s, BmobException e) {
-                if (e == null){
+                if (e == null) {
                     onResultFinishCallBack.onBmobSuccess(s);
-                }else {
-                    onResultFinishCallBack.onBmobFailure(e.getErrorCode()+e.getMessage());
+                } else {
+                    onResultFinishCallBack.onBmobFailure(e.getErrorCode() + e.getMessage());
                 }
             }
         });
@@ -69,10 +72,10 @@ public class IResult implements ResultM {
         query.findObjects(new FindListener<SendExpressOrder>() {
             @Override
             public void done(List<SendExpressOrder> list, BmobException e) {
-                if (e == null){
+                if (e == null) {
                     callBack.onQuerySuccess(list);
-                }else {
-                    callBack.onBmobFailure(e.getErrorCode()+e.getMessage());
+                } else {
+                    callBack.onBmobFailure(e.getErrorCode() + e.getMessage());
                     Logger.d("IResult", e.getErrorCode() + e.getMessage());
                 }
 

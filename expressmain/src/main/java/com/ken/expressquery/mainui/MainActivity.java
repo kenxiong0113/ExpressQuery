@@ -7,33 +7,38 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.FrameLayout;
+
 import com.ashokvarma.bottomnavigation.BottomNavigationBar;
 import com.ashokvarma.bottomnavigation.BottomNavigationItem;
 import com.ken.expressquery.R;
-import com.ken.expressquery.mainui.fragment.SearchExpressFragment;
 import com.ken.expressquery.mainui.fragment.HomeFragment;
 import com.ken.expressquery.mainui.fragment.MyFragment;
+import com.ken.expressquery.mainui.fragment.SearchExpressFragment;
 import com.ken.expressquery.mainui.fragment.SendFragment;
 import com.ken.expressquery.utils.ExitPressed;
 
 import java.util.ArrayList;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
  * @author by ken on 2018/4/25
- *         活动主界面
+ * 活动主界面
  */
 public class MainActivity extends AppCompatActivity implements
         BottomNavigationBar.OnTabSelectedListener {
-    @BindView(R.id.lay_frame) FrameLayout layFrame;
-    @BindView(R.id.bottom_navigation_bar) BottomNavigationBar bottomNavigationBar;
+    @BindView(R.id.lay_frame)
+    FrameLayout layFrame;
+    @BindView(R.id.bottom_navigation_bar)
+    BottomNavigationBar bottomNavigationBar;
     private HomeFragment homeFragment;
     private SearchExpressFragment searchExpressFragment;
     private MyFragment myFragment;
     private SendFragment sendFragment;
     private ArrayList<Fragment> fragments;
     private Context mContext;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -47,12 +52,12 @@ public class MainActivity extends AppCompatActivity implements
         bottomNavigationBar.setMode(BottomNavigationBar.MODE_FIXED);
         bottomNavigationBar.setBackgroundStyle(BottomNavigationBar.BACKGROUND_STYLE_STATIC);
         bottomNavigationBar.addItem(new BottomNavigationItem(R.drawable.bottom_bar_ic_home, getString(R.string.shouye))
-                        .setActiveColorResource(R.color.bottom_bar))
+                .setActiveColorResource(R.color.bottom_bar))
                 .addItem(new BottomNavigationItem(R.drawable.bottom_bar_ic_express, getString(R.string.find))
                         .setActiveColorResource(R.color.bottom_bar))
                 .addItem(new BottomNavigationItem(R.drawable.bottom_bar_ic_my, getString(R.string.my))
                         .setActiveColorResource(R.color.bottom_bar))
-                        .setBarBackgroundColor(R.color.background_bar)
+                .setBarBackgroundColor(R.color.background_bar)
                 .initialise();
         setDefaultFragment();
         bottomNavigationBar.setTabSelectedListener(this);
@@ -119,7 +124,7 @@ public class MainActivity extends AppCompatActivity implements
 
     @Override
     public void onBackPressed() {
-        if (ExitPressed.exitPressed(mContext)){
+        if (ExitPressed.exitPressed(mContext)) {
             finish();
         }
     }

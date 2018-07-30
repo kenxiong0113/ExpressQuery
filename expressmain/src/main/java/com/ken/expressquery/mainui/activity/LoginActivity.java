@@ -24,6 +24,7 @@ import butterknife.OnClick;
  * 登录活动界面
  */
 public class LoginActivity extends AppCompatActivity {
+    private final static int PHONE_LENGTH = 11;
     @BindView(R.id.et_phone)
     EditText etPhone;
     @BindView(R.id.et_password)
@@ -39,7 +40,6 @@ public class LoginActivity extends AppCompatActivity {
     @BindView(R.id.tv_register)
     TextView tvRegister;
     private String phone, password;
-    private final static int PHONE_LENGTH = 11;
     private Context mContext;
 
     @Override
@@ -52,7 +52,7 @@ public class LoginActivity extends AppCompatActivity {
     }
 
 
-    @OnClick({R.id.tv_register,R.id.btn_login,R.id.tv_forget})
+    @OnClick({R.id.tv_register, R.id.btn_login, R.id.tv_forget})
     public void onClick(View view) {
         int msg = view.getId();
         switch (msg) {

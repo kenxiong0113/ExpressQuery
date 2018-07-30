@@ -8,11 +8,14 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Window;
 import android.view.WindowManager;
+
 import com.ken.expressquery.R;
 import com.ken.expressquery.mainui.MainActivity;
 import com.ken.expressquery.utils.PermissionHelper;
+
 import cn.bmob.v3.Bmob;
 import cn.bmob.v3.BmobUser;
+
 import static com.ken.expressquery.base.BaseConstant.BMOB_APP_KEY;
 
 /**
@@ -25,6 +28,7 @@ public class WelcomeActivity extends AppCompatActivity {
     private PermissionHelper mPermissionHelper;
     private Context mContext;
     private String TAG = WelcomeActivity.class.getName();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -76,7 +80,7 @@ public class WelcomeActivity extends AppCompatActivity {
     }
 
 
-    private void runApp(){
+    private void runApp() {
         startActivity(new Intent(WelcomeActivity.this, MainActivity.class));
         finish();
     }
@@ -84,7 +88,7 @@ public class WelcomeActivity extends AppCompatActivity {
     /**
      * 获取用户缓存
      */
-    private void getUserCache(){
+    private void getUserCache() {
         bmobUser = BmobUser.getCurrentUser();
         if (bmobUser != null) {
             // 允许用户使用应用

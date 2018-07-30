@@ -87,10 +87,10 @@ public class LocationImpl implements LocationModel {
                         longitude = aMapLocation.getLongitude();
                         latitude = aMapLocation.getLatitude();
                         onLocationFinishListener.onLocationSuccess(province, city, district, street, streetNum);
-                        Log.e(TAG, "onLocationChanged: "+province + city);
+                        Log.e(TAG, "onLocationChanged: " + province + city);
                     } else {
                         onLocationFinishListener.onLocationFailure(aMapLocation.getErrorInfo());
-                        Log.e(TAG, "onLocationChanged: "+ aMapLocation.getErrorCode() + aMapLocation.getErrorInfo() );
+                        Log.e(TAG, "onLocationChanged: " + aMapLocation.getErrorCode() + aMapLocation.getErrorInfo());
                     }
                 }
             }

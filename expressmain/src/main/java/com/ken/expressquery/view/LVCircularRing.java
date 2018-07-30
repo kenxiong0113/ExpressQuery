@@ -19,6 +19,7 @@ import android.view.animation.LinearInterpolator;
 
 public class LVCircularRing extends View {
     private static final String TAG = "LVCircularRing";
+    ValueAnimator valueAnimator;
     private float mWidth = 0f;
     private float mPadding = 0f;
     private float startAngle = 0f;
@@ -62,7 +63,6 @@ public class LVCircularRing extends View {
 
     }
 
-
     private void initPaint() {
         mPaint = new Paint();
         mPaint.setAntiAlias(true);
@@ -84,8 +84,6 @@ public class LVCircularRing extends View {
             valueAnimator.end();
         }
     }
-
-    ValueAnimator valueAnimator;
 
     private ValueAnimator startViewAnim(float startF, final float endF, long time) {
         valueAnimator = ValueAnimator.ofFloat(startF, endF);

@@ -13,12 +13,12 @@ import java.util.List;
  * 预约寄件返回后的结果保存到bmob后的presenter层
  *
  * @author by ken on 2018/5/31
- * */
+ */
 public class PResult {
     ResultM resultM;
     ResultV resultV;
 
-    public PResult(ResultV resultV){
+    public PResult(ResultV resultV) {
         this.resultM = IResult.getInstances();
         this.resultV = resultV;
     }
@@ -34,7 +34,7 @@ public class PResult {
                      String packageNum,
                      String cost,
                      String leave,
-                     String company){
+                     String company) {
         resultM.insertOrder(sendName,
                 sendPhone,
                 sendAddress,
@@ -66,10 +66,9 @@ public class PResult {
     }
 
     /**
-     *
      * @param vrg 查询类型，1->查询自增订单单号，2->查询关联整行的数据
-     * */
-    public void query(User user, final int vrg){
+     */
+    public void query(User user, final int vrg) {
         resultM.queryOrder(user, new OnResultFinishCallBack() {
             @Override
             public void onBmobSuccess(String str) {
@@ -83,7 +82,7 @@ public class PResult {
 
             @Override
             public void onQuerySuccess(List<SendExpressOrder> list) {
-                resultV.bQuerySuccess(list,vrg);
+                resultV.bQuerySuccess(list, vrg);
             }
         });
     }

@@ -19,12 +19,12 @@ tinkerpatchSupport {
      需要你手动修改'tinker.sample.android.app'本示例的包名为你自己的包名, com.xxx前缀的包名不用修改
      **/
     tinkerEnable = true
-    reflectApplication = false
+    reflectApplication = true
     /**
      * 是否开启加固模式，只能在APK将要进行加固时使用，否则会patch失败。
      * 如果只在某个渠道使用了加固，可使用多flavors配置
      **/
-    protectedApp = false
+    protectedApp = true
     /**
      * 实验功能
      * 补丁是否支持新增 Activity (新增Activity的exported属性必须为false)
@@ -36,14 +36,14 @@ tinkerpatchSupport {
     appKey = "9c0135bd734ea6fd"
 
     /** 注意: 若发布新的全量包, appVersion一定要更新 **/
-    appVersion = "1.0.0"
+    appVersion = version
 
     def pathPrefix = "${bakPath}/${baseInfo}/${variantName}/"
     def name = "${project.name}-${variantName}"
 
-    baseApkFile = "${pathPrefix}/${name}.apk"
+    baseApkFile = "D:\\AndroidStudioProjects\\ExpressQuery\\expressmain\\build\\bakApk\\expressmain-1.0.0-0730-17-57-02\\release/expressmain-release.apk"
     baseProguardMappingFile = "${pathPrefix}/${name}-mapping.txt"
-    baseResourceRFile = "${pathPrefix}/${name}-R.txt"
+    baseResourceRFile = "D:\\AndroidStudioProjects\\ExpressQuery\\expressmain\\build\\bakApk\\expressmain-1.0.0-0730-17-57-02\\release/expressmain-release-R.txt"
 
     /**
      *  若有编译多flavors需求, 可以参照： https://github.com/TinkerPatch/tinkerpatch-flavors-sample

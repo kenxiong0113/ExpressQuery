@@ -5,7 +5,7 @@ package com.ken.expressquery.utils;
  * 快递公司字符与代码的转换
  */
 
-public  class  Transform {
+public class Transform {
     private static String[] com = {
             "EMS",
             "中通快递",
@@ -40,28 +40,31 @@ public  class  Transform {
             "YZBK"};
     private static String code;
     private static String company;
-    /**
-     * 快递公司名字转换成代码
-     * @param company 快递公司名字
-     * @return 快递公司代码
-     */
-        public static String transform(String company){
-            for (int i = 0; i < com.length;i++){
-                if(company.equals(com[i])){
-                    code = no[i];
-                }
-            }
-            return code;
-        }
 
     /**
      * 快递公司名字转换成代码
+     *
+     * @param company 快递公司名字
+     * @return 快递公司代码
+     */
+    public static String transform(String company) {
+        for (int i = 0; i < com.length; i++) {
+            if (company.equals(com[i])) {
+                code = no[i];
+            }
+        }
+        return code;
+    }
+
+    /**
+     * 快递公司名字转换成代码
+     *
      * @param code 快递公司代码
      * @return 快递公司名字
      */
-    public static String codeToCom(String code){
-        for (int j = 0;j < no.length;j++){
-            if(code.equals(no[j])){
+    public static String codeToCom(String code) {
+        for (int j = 0; j < no.length; j++) {
+            if (code.equals(no[j])) {
                 Transform.company = com[j];
             }
         }

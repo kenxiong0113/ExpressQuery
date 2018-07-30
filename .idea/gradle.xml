@@ -8,10 +8,7 @@
         <option name="modules">
           <set>
             <option value="$PROJECT_DIR$" />
-            <option value="$PROJECT_DIR$/baselibrary" />
             <option value="$PROJECT_DIR$/expressmain" />
-            <option value="$PROJECT_DIR$/login" />
-            <option value="$PROJECT_DIR$/sendexpress" />
           </set>
         </option>
         <option name="resolveModulePerSourceSet" value="false" />

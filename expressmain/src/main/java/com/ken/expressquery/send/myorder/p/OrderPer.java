@@ -1,7 +1,6 @@
 package com.ken.expressquery.send.myorder.p;
 
 import com.ken.expressquery.model.User;
-import com.ken.expressquery.send.bean.Result;
 import com.ken.expressquery.send.bean.ResultData;
 import com.ken.expressquery.send.bean.SendExpressOrder;
 import com.ken.expressquery.send.myorder.OnOrderFinishCallback;
@@ -15,12 +14,12 @@ public class OrderPer {
     IModelOrder iModelOrder;
     IViewOrder iViewOrder;
 
-    public OrderPer(IViewOrder iViewOrder){
+    public OrderPer(IViewOrder iViewOrder) {
         this.iViewOrder = iViewOrder;
         this.iModelOrder = new OrderImp();
     }
 
-    public void insert(String com, String no, SendExpressOrder order, User user){
+    public void insert(String com, String no, SendExpressOrder order, User user) {
         iModelOrder.insertResult(com, no, order, user, new OnOrderFinishCallback() {
             @Override
             public void onSuccess(String str) {
@@ -39,7 +38,7 @@ public class OrderPer {
         });
     }
 
-    public void query(User user){
+    public void query(User user) {
         iModelOrder.queryResult(user, new OnOrderFinishCallback() {
             @Override
             public void onSuccess(String str) {

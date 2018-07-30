@@ -4,7 +4,6 @@ import android.content.Context;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 
 import com.ken.expressquery.R;
 import com.ken.expressquery.base.BaseActivity;
@@ -26,7 +25,7 @@ import cn.bmob.v3.BmobUser;
  *
  * @author by ken on 2018/5/23
  */
-public class MyOrderActivity extends BaseActivity implements IViewOrder{
+public class MyOrderActivity extends BaseActivity implements IViewOrder {
     @BindView(R.id.rv_order)
     RecyclerView rvOrder;
     private LinearLayoutManager layoutManager;
@@ -71,17 +70,17 @@ public class MyOrderActivity extends BaseActivity implements IViewOrder{
             @Override
             public void convert(BaseRecyclerHolder holder, ResultData item, int position, boolean isScrolling) {
 //                快递单号
-                if (item.getLogistsicCode() == null){
-                    holder.setText(R.id.tv_no,"快递单号：下单失败，无单号");
-                }else {
-                    holder.setText(R.id.tv_no,"快递单号："+item.getLogistsicCode());
+                if (item.getLogistsicCode() == null) {
+                    holder.setText(R.id.tv_no, "快递单号：下单失败，无单号");
+                } else {
+                    holder.setText(R.id.tv_no, "快递单号：" + item.getLogistsicCode());
                 }
 
 //                物流状态
-                holder.setText(R.id.tv_company,item.getShipperCode());
-                holder.setText(R.id.tv_order_no, "订单号："+String.valueOf(mList.get(position).getSendId().getOrderNumber()));
-                holder.setText(R.id.tv_time,"下单时间："+String.valueOf(mList.get(position).getSendId().getCreatedAt()));
-                holder.setText(R.id.tv_receive_name,"收件人："+mList.get(position).getSendId().getrName()+"    "+mList.get(position).getSendId().getrPhone());
+                holder.setText(R.id.tv_company, item.getShipperCode());
+                holder.setText(R.id.tv_order_no, "订单号：" + String.valueOf(mList.get(position).getSendId().getOrderNumber()));
+                holder.setText(R.id.tv_time, "下单时间：" + String.valueOf(mList.get(position).getSendId().getCreatedAt()));
+                holder.setText(R.id.tv_receive_name, "收件人：" + mList.get(position).getSendId().getrName() + "    " + mList.get(position).getSendId().getrPhone());
 
             }
         };
@@ -91,7 +90,7 @@ public class MyOrderActivity extends BaseActivity implements IViewOrder{
         rvOrder.setAdapter(adapter);
     }
 
-    private void loadData(){
+    private void loadData() {
         orderPer.query(user);
     }
 
@@ -107,12 +106,12 @@ public class MyOrderActivity extends BaseActivity implements IViewOrder{
 
     @Override
     public void onOrderQuerySuccess(List<ResultData> list) {
-        if (list.size() != 0){
-            for (ResultData data:list){
-                mList.add(new ResultData(data.getSendId(),data.getUserId(),data.getShipperCode(),data.getLogistsicCode()));
+        if (list.size() != 0) {
+            for (ResultData data : list) {
+                mList.add(new ResultData(data.getSendId(), data.getUserId(), data.getShipperCode(), data.getLogistsicCode()));
             }
             adapter.notifyDataSetChanged();
-        }else {
+        } else {
 //没有寄件订单
 
 

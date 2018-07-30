@@ -25,10 +25,10 @@ import com.ken.expressquery.base.MyApplication;
 import com.ken.expressquery.dbgreendao.express.ExpressCallBack;
 import com.ken.expressquery.dbgreendao.express.ExpressQuery;
 import com.ken.expressquery.greendao.ExpressInfoDao;
+import com.ken.expressquery.mainui.activity.SearchResultActivity;
 import com.ken.expressquery.model.ExpressInfo;
 import com.ken.expressquery.search.p.SearchPre;
 import com.ken.expressquery.search.v.SearchExpressView;
-import com.ken.expressquery.mainui.activity.SearchResultActivity;
 import com.ken.expressquery.view.LoadingDialog;
 
 import java.util.ArrayList;
@@ -48,22 +48,48 @@ import static com.ken.expressquery.base.BaseConstant.SHOW_TOAST;
  */
 
 public class HomeFragment extends Fragment implements View.OnClickListener,
-        SwipeRefreshLayout.OnRefreshListener,SearchExpressView {
+        SwipeRefreshLayout.OnRefreshListener, SearchExpressView {
     @BindView(R.id.rcy_home)
     RecyclerView recyclerView;
     @BindView(R.id.refresh_layout)
     SwipeRefreshLayout swipeRefreshLayout;
-
+    Unbinder unbinder;
     private LoadingDialog dialog;
     private String no;
-    Unbinder unbinder;
     private View view;
     private LinearLayoutManager layoutManager;
     private BaseRecyclerAdapter<ExpressInfo> adapter;
     private List<ExpressInfo> mExpressInfoList = new ArrayList<>();
     private Context mContext;
+    /**
+     * 更新UI
+     * 在UI线程中
+     */
+    public Handler handler = new Handler() {
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+            switch (msg.what) {
+                case SHOW_DIALOG:
+                    dialog = new LoadingDialog(mContext, "正在查询...");
+                    dialog.setCancelable(true);
+                    dialog.show();
+                    break;
+                case DISMISS_DIALOG:
+                    dismissDialog();
+                    break;
+                case SHOW_TOAST:
+                    Toast.makeText(mContext, "查询超时，请重试", Toast.LENGTH_SHORT).show();
+                    break;
+                default:
+                    break;
+
+            }
+        }
+    };
     private ExpressInfoDao mDao;
     private SearchPre searchPre = new SearchPre(this);
+
     public static HomeFragment newInstance(String param1) {
         HomeFragment fragment = new HomeFragment();
         Bundle args = new Bundle();
@@ -96,23 +122,23 @@ public class HomeFragment extends Fragment implements View.OnClickListener,
         swipeRefreshLayout.setOnRefreshListener(this);
     }
 
-    private void setAdapter(){
-        adapter = new BaseRecyclerAdapter<ExpressInfo>(mContext,mExpressInfoList,R.layout.item_home) {
+    private void setAdapter() {
+        adapter = new BaseRecyclerAdapter<ExpressInfo>(mContext, mExpressInfoList, R.layout.item_home) {
             @Override
             public void convert(BaseRecyclerHolder holder, ExpressInfo item, int position, boolean isScrolling) {
 //               判断物流轨迹信息是否为空数据
-                if (item.getList().size() !=0 && item.getList() != null){
-                    holder.setText(R.id.tv_content,item.getList().get(0).getContent());
-                }else {
-                    holder.setText(R.id.tv_content,"暂无物流轨迹信息");
+                if (item.getList().size() != 0 && item.getList() != null) {
+                    holder.setText(R.id.tv_content, item.getList().get(0).getContent());
+                } else {
+                    holder.setText(R.id.tv_content, "暂无物流轨迹信息");
                 }
-                holder.setText(R.id.tv_name,item.getName());
-                holder.setText(R.id.tv_no,item.getNo());
+                holder.setText(R.id.tv_name, item.getName());
+                holder.setText(R.id.tv_no, item.getNo());
                 Glide.with(mContext)
                         .load(item.getLogo())
                         .apply(RequestOptions.placeholderOf(R.drawable.pic_loading))
                         .apply(RequestOptions.errorOf(R.drawable.url_error))
-                        .into((ImageView)holder.getView(R.id.img_logo));
+                        .into((ImageView) holder.getView(R.id.img_logo));
             }
         };
 
@@ -129,7 +155,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener,
 
 
         layoutManager = new LinearLayoutManager(getActivity(),
-                LinearLayoutManager.VERTICAL,false);
+                LinearLayoutManager.VERTICAL, false);
 //      layoutManager.setStackFromEnd(true);//列表再底部开始展示，反转后由上面开始展示
 //      layoutManager.setReverseLayout(true);//列表翻转
         recyclerView.setLayoutManager(layoutManager);
@@ -141,8 +167,8 @@ public class HomeFragment extends Fragment implements View.OnClickListener,
             @Override
             public void trajectoryInformation(List<ExpressInfo> mList) {
 
-                for (ExpressInfo info : mList){
-                    if (info.getName() != null){
+                for (ExpressInfo info : mList) {
+                    if (info.getName() != null) {
                         mExpressInfoList.add(new ExpressInfo(
                                 info.getId(),
                                 info.getNo(),
@@ -152,9 +178,9 @@ public class HomeFragment extends Fragment implements View.OnClickListener,
                     }
 
                 }
-             adapter.notifyDataSetChanged();
+                adapter.notifyDataSetChanged();
 //                收起下拉刷新
-             swipeRefreshLayout.setRefreshing(false);
+                swipeRefreshLayout.setRefreshing(false);
             }
         });
     }
@@ -215,7 +241,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener,
         Message message = new Message();
         message.what = DISMISS_DIALOG;
         handler.sendMessage(message);
-        if ("timeout".equals(str)){
+        if ("timeout".equals(str)) {
             showDialog();
         }
     }
@@ -227,31 +253,4 @@ public class HomeFragment extends Fragment implements View.OnClickListener,
         handler.sendMessage(message);
 
     }
-
-    /**
-     * 更新UI
-     * 在UI线程中
-     * */
-    public Handler handler = new Handler(){
-        @Override
-        public void handleMessage(Message msg) {
-            super.handleMessage(msg);
-            switch (msg.what){
-                case SHOW_DIALOG:
-                    dialog = new LoadingDialog(mContext,"正在查询...");
-                    dialog.setCancelable(true);
-                    dialog.show();
-                    break;
-                case DISMISS_DIALOG:
-                    dismissDialog();
-                    break;
-                case SHOW_TOAST:
-                    Toast.makeText(mContext, "查询超时，请重试", Toast.LENGTH_SHORT).show();
-                    break;
-                default:
-                    break;
-
-            }
-        }
-    };
 }

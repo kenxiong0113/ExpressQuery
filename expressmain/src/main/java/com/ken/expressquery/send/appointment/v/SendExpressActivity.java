@@ -25,28 +25,23 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.gson.Gson;
-import com.google.gson.JsonObject;
-import com.ken.expressquery.BuildConfig;
 import com.ken.expressquery.R;
-import com.ken.expressquery.management.AddAddressActivity;
-import com.ken.expressquery.management.AddressBookActivity;
-import com.ken.expressquery.management.address.p.AddressPre;
-import com.ken.expressquery.management.address.v.AddressView;
-import com.ken.expressquery.management.bean.AddressBook;
 import com.ken.expressquery.base.BaseActivity;
 import com.ken.expressquery.base.BaseConstant;
 import com.ken.expressquery.base.BaseRecyclerAdapter;
 import com.ken.expressquery.base.BaseRecyclerHolder;
 import com.ken.expressquery.base.bean.PopList;
+import com.ken.expressquery.management.AddAddressActivity;
+import com.ken.expressquery.management.AddressBookActivity;
+import com.ken.expressquery.management.address.p.AddressPre;
+import com.ken.expressquery.management.address.v.AddressView;
+import com.ken.expressquery.management.bean.AddressBook;
 import com.ken.expressquery.model.User;
 import com.ken.expressquery.send.appointment.p.SendExpressPre;
-import com.ken.expressquery.send.bean.Result;
 import com.ken.expressquery.send.bean.ResultData;
 import com.ken.expressquery.send.bean.SendExpressOrder;
 import com.ken.expressquery.send.myorder.p.OrderPer;
 import com.ken.expressquery.send.myorder.v.IViewOrder;
-import com.ken.expressquery.send.myorder.v.MyOrderActivity;
 import com.ken.expressquery.send.result.p.PResult;
 import com.ken.expressquery.send.result.v.ResultV;
 import com.ken.expressquery.threadpool.ThreadPoolProxyFactory;
@@ -74,7 +69,17 @@ import es.dmoral.toasty.Toasty;
  * @author by ken on 2018/5/18
  */
 public class SendExpressActivity extends BaseActivity implements SendExpressView,
-        View.OnTouchListener, View.OnClickListener, AddressView ,ResultV,IViewOrder{
+        View.OnTouchListener, View.OnClickListener, AddressView, ResultV, IViewOrder {
+    private static final int CUT_WEIGHT = 0x001;
+    private static final int ADD_WEIGHT = 0x002;
+    private static final int SHOW_SEND_DIALOG = 0x003;
+    private static final int DISMISS_SEND_DIALOG = 0x004;
+    private static final int REQUEST_CODE_1 = 0x005;
+    private static final int REQUEST_CODE_2 = 0x006;
+    private static final int REQUEST_CODE_3 = 0x007;
+    private static final int REQUEST_CODE_4 = 0x008;
+    @SuppressLint("HandlerLeak")
+    public Handler handler;
     @BindView(R.id.img_ic_send)
     ImageView imgIcSend;
     @BindView(R.id.tv_name)
@@ -131,30 +136,17 @@ public class SendExpressActivity extends BaseActivity implements SendExpressView
     View view5;
     @BindView(R.id.tv_cost)
     TextView tvCost;
-    private Activity activity;
-    private Context mContext;
-    private String TAG = SendExpressActivity.class.getName();
     List<PopList> dataList = new ArrayList<>();
     BaseRecyclerAdapter<PopList> adapter;
     CustomPopWindow mListPopWindow;
     CustomPopWindow popBottomWindow;
     TextView tv1, tv2, tv3, tv4, tv5, tv6;
     String selectGoodsType = null;
-    private static final int CUT_WEIGHT = 0x001;
-    private static final int ADD_WEIGHT = 0x002;
-    private static final int SHOW_SEND_DIALOG = 0x003;
-    private static final int DISMISS_SEND_DIALOG= 0x004;
-    private static final int REQUEST_CODE_1 = 0x005;
-    private static final int REQUEST_CODE_2 = 0x006;
-    private static final int REQUEST_CODE_3 = 0x007;
-    private static final int REQUEST_CODE_4 = 0x008;
     boolean onClickAdd = false;
-    /** 重量*/
+    /**
+     * 重量
+     */
     int we;
-    private SendExpressPre sendExpressPre = new SendExpressPre(this);
-    private AddressPre pre = new AddressPre(this);
-    private PResult pResult = new PResult(this);
-    private OrderPer orderPer = new OrderPer(this);
     LoadingDialog dialog;
     User user;
     String sendName, sendPhone, sendAddress;
@@ -162,8 +154,78 @@ public class SendExpressActivity extends BaseActivity implements SendExpressView
     String weight, packageNum, leave, goodsType, expressCompany;
     String cost;
     String orderCode;
-    String com,no;
+    String com, no;
     LoadingDialog sendDialog;
+    TextWatcher watcher = new TextWatcher() {
+
+        @Override
+        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+        }
+
+        @Override
+        public void onTextChanged(CharSequence s, int start, int before, int count) {
+            showCost(s.toString());
+        }
+
+        @Override
+        public void afterTextChanged(Editable s) {
+            showCost(s.toString());
+        }
+    };
+    private Activity activity;
+    private Context mContext;
+    private String TAG = SendExpressActivity.class.getName();
+    private SendExpressPre sendExpressPre = new SendExpressPre(this);
+    private AddressPre pre = new AddressPre(this);
+    private PResult pResult = new PResult(this);
+    private OrderPer orderPer = new OrderPer(this);
+
+    {
+        handler = new Handler() {
+            @Override
+            public void handleMessage(Message msg) {
+                super.handleMessage(msg);
+                switch (msg.what) {
+                    case ADD_WEIGHT:
+                        etWeight.setText(String.valueOf(we));
+                        showCost(etWeight.getText().toString());
+                        break;
+                    case CUT_WEIGHT:
+                        etWeight.setText(String.valueOf(we));
+                        showCost(etWeight.getText().toString());
+                        break;
+                    case SHOW_SEND_DIALOG:
+                        showSendDialog();
+                        break;
+                    case DISMISS_SEND_DIALOG:
+                        dismissSendDialog();
+                        AlertDialog.Builder builder = new AlertDialog.Builder(SendExpressActivity.this);
+                        builder.setCancelable(false);
+                        if (msg.arg1 == 1) {
+                            builder.setTitle("预约成功");
+                            builder.setIcon(R.drawable.ic_success);
+                        } else {
+                            builder.setTitle("预约失败");
+                            builder.setIcon(R.drawable.ic_failure);
+                            builder.setNegativeButton("取消", null);
+                        }
+
+                        builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                finish();
+                            }
+                        });
+                        builder.show();
+                        break;
+                    default:
+                        break;
+                }
+            }
+        };
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -242,7 +304,7 @@ public class SendExpressActivity extends BaseActivity implements SendExpressView
                 leave = etNote.getText().toString();
                 expressCompany = tvSelectCom.getText().toString();
 //查询自增订单号
-                pResult.query(user,1);
+                pResult.query(user, 1);
 
                 break;
 //                选择寄送物品类型
@@ -330,7 +392,7 @@ public class SendExpressActivity extends BaseActivity implements SendExpressView
 
     @Override
     public void showSendDialog() {
-        sendDialog = new LoadingDialog(SendExpressActivity.this,"预约中...");
+        sendDialog = new LoadingDialog(SendExpressActivity.this, "预约中...");
         sendDialog.setCancelable(true);
         sendDialog.show();
     }
@@ -359,7 +421,7 @@ public class SendExpressActivity extends BaseActivity implements SendExpressView
             String order = object.getString("Order");
             // TODO: 2018/6/8 返回的寄件数据待解析
             JSONObject json = new JSONObject(order);
-            if (isSuccess){
+            if (isSuccess) {
                 no = json.getString("LogisticCode");
             }
             com = Transform.codeToCom(json.getString("ShipperCode"));
@@ -401,7 +463,6 @@ public class SendExpressActivity extends BaseActivity implements SendExpressView
         handler.sendMessage(message);
 
     }
-
 
     /**
      * 弹出View底部pop
@@ -465,9 +526,10 @@ public class SendExpressActivity extends BaseActivity implements SendExpressView
             }
         });
     }
-/**
- * 底部popwindows的数据加载
- * */
+
+    /**
+     * 底部popwindows的数据加载
+     */
     private void mockData() {
 //        清理数据列表
         dataList.clear();
@@ -475,54 +537,6 @@ public class SendExpressActivity extends BaseActivity implements SendExpressView
             dataList.add(new PopList(BaseConstant.COM[i]));
         }
         adapter.notifyDataSetChanged();
-    }
-
-    @SuppressLint("HandlerLeak")
-    public Handler handler;
-
-    {
-        handler = new Handler() {
-            @Override
-            public void handleMessage(Message msg) {
-                super.handleMessage(msg);
-                switch (msg.what) {
-                    case ADD_WEIGHT:
-                        etWeight.setText(String.valueOf(we));
-                        showCost(etWeight.getText().toString());
-                        break;
-                    case CUT_WEIGHT:
-                        etWeight.setText(String.valueOf(we));
-                        showCost(etWeight.getText().toString());
-                        break;
-                    case SHOW_SEND_DIALOG:
-                        showSendDialog();
-                        break;
-                    case DISMISS_SEND_DIALOG:
-                        dismissSendDialog();
-                        AlertDialog.Builder builder = new AlertDialog.Builder(SendExpressActivity.this);
-                        builder.setCancelable(false);
-                        if (msg.arg1 == 1) {
-                            builder.setTitle("预约成功");
-                            builder.setIcon(R.drawable.ic_success);
-                        } else {
-                            builder.setTitle("预约失败");
-                            builder.setIcon(R.drawable.ic_failure);
-                            builder.setNegativeButton("取消",null);
-                        }
-
-                        builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                finish();
-                            }
-                        });
-                        builder.show();
-                        break;
-                    default:
-                        break;
-                }
-            }
-        };
     }
 
     /**
@@ -650,7 +664,6 @@ public class SendExpressActivity extends BaseActivity implements SendExpressView
         }
     }
 
-
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -776,39 +789,39 @@ public class SendExpressActivity extends BaseActivity implements SendExpressView
 //        查询刚才插入预约寄件信息的数据
         queryResult(2);
 
-        Log.e("SendExpressActivity", "保存到后台成功"+str);
+        Log.e("SendExpressActivity", "保存到后台成功" + str);
     }
 
     @Override
     public void bFailure(String error) {
-        Log.e("SendExpressActivity", "保存到后台失败"+error);
+        Log.e("SendExpressActivity", "保存到后台失败" + error);
     }
 
     @Override
-    public void bQuerySuccess(List<SendExpressOrder> list,int vrg) {
-        if (vrg == 1){
-            if (list.size() != 0){
-                orderCode = String.valueOf(list.get(0).getOrderNumber()+1);
-            }else {
-                Toasty.error(mContext,"获取订单号失败",Toast.LENGTH_SHORT,true).show();
+    public void bQuerySuccess(List<SendExpressOrder> list, int vrg) {
+        if (vrg == 1) {
+            if (list.size() != 0) {
+                orderCode = String.valueOf(list.get(0).getOrderNumber() + 1);
+            } else {
+                Toasty.error(mContext, "获取订单号失败", Toast.LENGTH_SHORT, true).show();
                 return;
             }
             boolean com = false;
 //                判断快递公司是否选择正确
-            for (int i  = 0;i<BaseConstant.COM.length;i++){
-                if (expressCompany.equals(BaseConstant.COM[i])){
+            for (int i = 0; i < BaseConstant.COM.length; i++) {
+                if (expressCompany.equals(BaseConstant.COM[i])) {
                     com = true;
                 }
             }
-            if (sendName.length() == 0){
-                Toasty.warning(mContext,"请选择寄件地址",Toast.LENGTH_SHORT,true).show();
-            }else if (receiveName.length() == 0){
-                Toasty.warning(mContext,"请选择收件地址",Toast.LENGTH_SHORT,true).show();
-            }else if (goodsType.length() == 3){
-                Toasty.warning(mContext,"请选择物品类型",Toast.LENGTH_SHORT,true).show();
-            }else if (!com){
-                Toasty.warning(mContext,"请选择快递公司",Toast.LENGTH_SHORT,true).show();
-            }else {
+            if (sendName.length() == 0) {
+                Toasty.warning(mContext, "请选择寄件地址", Toast.LENGTH_SHORT, true).show();
+            } else if (receiveName.length() == 0) {
+                Toasty.warning(mContext, "请选择收件地址", Toast.LENGTH_SHORT, true).show();
+            } else if (goodsType.length() == 3) {
+                Toasty.warning(mContext, "请选择物品类型", Toast.LENGTH_SHORT, true).show();
+            } else if (!com) {
+                Toasty.warning(mContext, "请选择快递公司", Toast.LENGTH_SHORT, true).show();
+            } else {
                 Message message = new Message();
                 message.what = SHOW_SEND_DIALOG;
                 handler.sendMessage(message);
@@ -827,9 +840,9 @@ public class SendExpressActivity extends BaseActivity implements SendExpressView
                         leave,
                         expressCompany);
             }
-        }else if (vrg == 2){
-            if (list.size() != 0){
-                orderPer.insert(com,no,list.get(0),user);
+        } else if (vrg == 2) {
+            if (list.size() != 0) {
+                orderPer.insert(com, no, list.get(0), user);
 
             }
         }
@@ -838,35 +851,17 @@ public class SendExpressActivity extends BaseActivity implements SendExpressView
 
     /**
      * 计算运费
-     * */
-    private void showCost(String str){
+     */
+    private void showCost(String str) {
 //        模拟计算运费，因为每个快递公司运费不一致，这里简化处理
         tvCost.setText(CalculateShippingCosts.calculate(str));
     }
 
-   TextWatcher watcher = new TextWatcher() {
-
-        @Override
-        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-        }
-
-        @Override
-        public void onTextChanged(CharSequence s, int start, int before, int count) {
-            showCost(s.toString());
-        }
-
-        @Override
-        public void afterTextChanged(Editable s) {
-            showCost(s.toString());
-        }
-    };
-
     /**
      * 查询预约成功后添加进bmob后台的预约寄件信息的数据
-     * */
-    private void queryResult(int vrg){
-        pResult.query(user,vrg);
+     */
+    private void queryResult(int vrg) {
+        pResult.query(user, vrg);
     }
 
     @Override

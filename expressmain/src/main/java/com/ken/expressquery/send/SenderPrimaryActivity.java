@@ -14,10 +14,9 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.bumptech.glide.util.LogTime;
 import com.ken.expressquery.R;
-import com.ken.expressquery.management.address.v.ManageAddressActivity;
 import com.ken.expressquery.base.BaseActivity;
+import com.ken.expressquery.management.address.v.ManageAddressActivity;
 import com.ken.expressquery.map.p.LocationPre;
 import com.ken.expressquery.map.v.LocationView;
 import com.ken.expressquery.send.adapter.CommonFunctionsAdapter;
@@ -41,6 +40,7 @@ import butterknife.OnClick;
  */
 public class SenderPrimaryActivity extends BaseActivity implements
         LocationView, AdapterView.OnItemClickListener {
+    private static final String TAG = "SenderPrimaryActivity";
     @BindView(R.id.tv_address)
     TextView tvAddress;
     @BindView(R.id.tv_location)
@@ -64,8 +64,6 @@ public class SenderPrimaryActivity extends BaseActivity implements
     private Context mContext;
     private CommonFunctionsAdapter adapter;
     private LocationPre locationPre = new LocationPre(this);
-
-    private static final String TAG = "SenderPrimaryActivity";
     private LoadingDialog dialog;
     private int[] icon = {
             R.drawable.ic_send_express,
@@ -195,7 +193,7 @@ public class SenderPrimaryActivity extends BaseActivity implements
 
     @Override
     public void onFailure(String str) {
-        Log.e(TAG, "onFailure: "+str );
+        Log.e(TAG, "onFailure: " + str);
         Toast.makeText(mContext, "定位失败，请检查应用权限！", Toast.LENGTH_SHORT).show();
     }
 

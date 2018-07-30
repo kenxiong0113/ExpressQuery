@@ -74,6 +74,7 @@ public class SearchResultActivity extends BaseActivity {
     TextView tvCustomerService;
     @BindView(R.id.tv_phone)
     TextView tvPhone;
+    LinearLayoutManager layoutManager;
     private List<ExpressInfo.LogisticsTrack> listArray = new ArrayList<>();
     /**
      * 物流状态
@@ -82,7 +83,6 @@ public class SearchResultActivity extends BaseActivity {
     private List<ExpressInfo.LogisticsTrack> mTracesList = new ArrayList<>();
     private BaseRecyclerAdapter<ExpressInfo.LogisticsTrack> mAdapter;
     private String TAG = SearchResultActivity.class.getName();
-    LinearLayoutManager layoutManager;
     private String result;
     private Context mContext;
     private int state_code = -2;
@@ -184,7 +184,7 @@ public class SearchResultActivity extends BaseActivity {
                 tvState.setText("问题件");
             }
             if (state_code != -2) {
-                if (info.getType() == null|| info.getName() == null) {
+                if (info.getType() == null || info.getName() == null) {
 //                    能查询，单无此单号的物流信息，即查不出是哪家快递公司的
                     tvState.setText("暂无此单号物流信息");
                     tvTypeAndNo.setText(info.getNo());
@@ -192,15 +192,15 @@ public class SearchResultActivity extends BaseActivity {
                     tvCustomerService.setVisibility(View.GONE);
                 } else {
                     tvTypeAndNo.setText(info.getName() + ":" + info.getNo());
-    //                有快递信息则显示客服电话
+                    //                有快递信息则显示客服电话
                     tvCustomerService.setVisibility(View.VISIBLE);
                     tvPhone.setText(info.getPhone());
 
                     Glide.with(mContext)
                             .load(info.getLogo())
                             .apply(RequestOptions.placeholderOf(R.drawable.pic_loading))
-    //                        设置圆形图片
-    //                        .apply(RequestOptions.circleCropTransform())
+                            //                        设置圆形图片
+                            //                        .apply(RequestOptions.circleCropTransform())
                             .apply(RequestOptions.errorOf(R.drawable.url_error))
                             .into(imgTypeLogo);
                     listArray = info.getList();
@@ -231,7 +231,6 @@ public class SearchResultActivity extends BaseActivity {
                     ExpressInsert.getInstances().insert(mDao, info);
 
                 }
-
 
 
             }

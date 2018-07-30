@@ -10,11 +10,14 @@ import com.ken.expressquery.greendao.ExpressInfoDao;
 public class ExpressDelete {
 
     private static ExpressDelete instances = null;
-            private ExpressDelete(){}
-    public static ExpressDelete getInstances(){
-        if (instances == null){
-            synchronized (ExpressDelete.class){
-                if (instances == null){
+
+    private ExpressDelete() {
+    }
+
+    public static ExpressDelete getInstances() {
+        if (instances == null) {
+            synchronized (ExpressDelete.class) {
+                if (instances == null) {
                     instances = new ExpressDelete();
                 }
             }
@@ -22,7 +25,7 @@ public class ExpressDelete {
         return instances;
     }
 
-    public void delete(ExpressInfoDao mDao,Long i){
+    public void delete(ExpressInfoDao mDao, Long i) {
         mDao.deleteByKey(i);
     }
 }

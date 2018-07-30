@@ -13,7 +13,7 @@ import java.util.List;
  * 泛型封装RecyclerView适配器
  */
 
-public abstract class BaseRecyclerAdapter <T> extends RecyclerView.Adapter<BaseRecyclerHolder> {
+public abstract class BaseRecyclerAdapter<T> extends RecyclerView.Adapter<BaseRecyclerHolder> {
     /**
      * 上下文
      */
@@ -47,6 +47,13 @@ public abstract class BaseRecyclerAdapter <T> extends RecyclerView.Adapter<BaseR
      */
     private RecyclerView recyclerView;
 
+    public BaseRecyclerAdapter(Context context, List<T> list, int itemLayoutId) {
+        this.context = context;
+        this.list = list;
+        this.itemLayoutId = itemLayoutId;
+        inflater = LayoutInflater.from(context);
+    }
+
     @Override
     public void onAttachedToRecyclerView(RecyclerView recyclerView) {
         super.onAttachedToRecyclerView(recyclerView);
@@ -59,30 +66,9 @@ public abstract class BaseRecyclerAdapter <T> extends RecyclerView.Adapter<BaseR
         this.recyclerView = null;
     }
 
-
-    public interface OnItemClickListener {
-        /**
-         * 定义一个点击事件接口回调
-         * @param parent
-         * @param view
-         * @param position
-         */
-        void onItemClick(RecyclerView parent, View view, int position);
-    }
-
-    public interface OnItemLongClickListener {
-        /**
-         * 定义一个长按点击事件接口回调
-         * @param parent
-         * @param view
-         * @param position
-         * @return
-         */
-        boolean onItemLongClick(RecyclerView parent, View view, int position);
-    }
-
     /**
      * 插入一项
+     *
      * @param item
      * @param position
      */
@@ -94,25 +80,19 @@ public abstract class BaseRecyclerAdapter <T> extends RecyclerView.Adapter<BaseR
          * 会有Insert的动画效果。但是，当RecycleView已满（需要滑动才能看到全部数据）时，
          * 就不再有Insert的动画效果了。
          */
-        if (position == 0){
+        if (position == 0) {
             recyclerView.scrollToPosition(0);
         }
     }
 
     /**
      * 删除一项
+     *
      * @param position 删除位置
      */
     public void delete(int position) {
         list.remove(position);
         notifyItemRemoved(position);
-    }
-
-    public BaseRecyclerAdapter(Context context, List<T> list, int itemLayoutId) {
-        this.context = context;
-        this.list = list;
-        this.itemLayoutId = itemLayoutId;
-        inflater = LayoutInflater.from(context);
     }
 
     @Override
@@ -166,12 +146,36 @@ public abstract class BaseRecyclerAdapter <T> extends RecyclerView.Adapter<BaseR
 
     /**
      * 填充RecyclerView适配器的方法，子类需要重写
+     *
      * @param holder      ViewHolder
      * @param item        子项
      * @param position    位置
      * @param isScrolling 是否在滑动
      */
     public abstract void convert(BaseRecyclerHolder holder, T item, int position, boolean isScrolling);
+
+    public interface OnItemClickListener {
+        /**
+         * 定义一个点击事件接口回调
+         *
+         * @param parent
+         * @param view
+         * @param position
+         */
+        void onItemClick(RecyclerView parent, View view, int position);
+    }
+
+    public interface OnItemLongClickListener {
+        /**
+         * 定义一个长按点击事件接口回调
+         *
+         * @param parent
+         * @param view
+         * @param position
+         * @return
+         */
+        boolean onItemLongClick(RecyclerView parent, View view, int position);
+    }
 
 
 }

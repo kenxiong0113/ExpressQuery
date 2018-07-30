@@ -12,8 +12,8 @@ import java.util.concurrent.TimeUnit;
 /**
  * 线程池代理
  *
- *@author by ken 0n 2018/5/14
- * */
+ * @author by ken 0n 2018/5/14
+ */
 public class ThreadPoolProxy {
     ThreadPoolExecutor mExecutor;
     private int mCorePoolSize;

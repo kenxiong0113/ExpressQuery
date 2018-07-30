@@ -27,6 +27,9 @@ import butterknife.OnClick;
  */
 
 public class RegisterActivity extends AppCompatActivity {
+    private final static String EMPTY = "";
+    private final static int PASSWORD_MIX_LENGTH = 6;
+    private final static String TAG = RegisterActivity.class.getName();
     @BindView(R.id.et_username)
     EditText etUsername;
     @BindView(R.id.view)
@@ -43,13 +46,10 @@ public class RegisterActivity extends AppCompatActivity {
     Button btnRegister;
     @BindView(R.id.tv_back_login)
     TextView tvBackLogin;
+    User user;
     private String username, password, rePassword;
     private TextView tvBack;
     private Context mContext;
-    User user;
-    private final static String EMPTY = "";
-    private final static int PASSWORD_MIX_LENGTH = 6;
-    private final static String TAG = RegisterActivity.class.getName();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,7 +61,7 @@ public class RegisterActivity extends AppCompatActivity {
     }
 
 
-    @OnClick({R.id.btn_register,R.id.tv_back_login})
+    @OnClick({R.id.btn_register, R.id.tv_back_login})
     public void onListener(View view) {
         switch (view.getId()) {
             case R.id.btn_register:

@@ -1,20 +1,19 @@
 package com.ken.expressquery.model;
 
-import android.media.MediaPlayer;
-
 import org.greenrobot.greendao.annotation.Convert;
 import org.greenrobot.greendao.annotation.Entity;
-
-import java.util.ArrayList;
-import java.util.List;
 import org.greenrobot.greendao.annotation.Generated;
 import org.greenrobot.greendao.annotation.Id;
 import org.greenrobot.greendao.annotation.Transient;
 import org.greenrobot.greendao.annotation.Unique;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * 快递信息跟踪 实体类
  * 快递基本信息
+ *
  * @author by ken on 2017/9/23.
  */
 @Entity
@@ -34,17 +33,11 @@ public class ExpressInfo {
      */
     @Id(autoincrement = true)
     private Long id;
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
     @Transient
     private String code;
-    /** 唯一约束*/
+    /**
+     * 唯一约束
+     */
     @Unique
     private String no;
     @Transient
@@ -59,11 +52,8 @@ public class ExpressInfo {
     @Transient
     private String phone;
     private String logo;
-
-    @Convert( converter = ExpressListConvert.class,columnType = String.class)
+    @Convert(converter = ExpressListConvert.class, columnType = String.class)
     private List<LogisticsTrack> list = new ArrayList<LogisticsTrack>();
-
-
     @Generated(hash = 1882813502)
     public ExpressInfo() {
     }
@@ -75,6 +65,14 @@ public class ExpressInfo {
         this.name = name;
         this.logo = logo;
         this.list = list;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getCode() {
@@ -171,6 +169,11 @@ public class ExpressInfo {
         private String content;
         private String time;
 
+        public LogisticsTrack(String content, String time) {
+            this.content = content;
+            this.time = time;
+        }
+
         public String getContent() {
             return content;
         }
@@ -190,11 +193,6 @@ public class ExpressInfo {
         @Override
         public String toString() {
             return super.toString();
-        }
-
-        public LogisticsTrack(String content,String time){
-            this.content = content;
-            this.time = time;
         }
     }
 }

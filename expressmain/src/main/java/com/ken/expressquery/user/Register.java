@@ -12,11 +12,15 @@ import cn.bmob.v3.listener.SaveListener;
 
 public class Register {
     private static Register register = null;
-        private Register(){}
-    public static Register getRegister(){
-        if (register == null){
-            synchronized (Register.class){
-                if (register == null){
+    public Register.CallBack mCallBack;
+
+    private Register() {
+    }
+
+    public static Register getRegister() {
+        if (register == null) {
+            synchronized (Register.class) {
+                if (register == null) {
                     register = new Register();
                 }
             }
@@ -24,7 +28,7 @@ public class Register {
         return register;
     }
 
-    public void register(String username, String password, final CallBack callBack){
+    public void register(String username, String password, final CallBack callBack) {
         this.mCallBack = callBack;
         User user = new User();
         user.setUsername(username);
@@ -33,25 +37,26 @@ public class Register {
         user.signUp(new SaveListener<User>() {
             @Override
             public void done(User user, BmobException e) {
-                if (e == null){
+                if (e == null) {
                     callBack.success();
-                }else {
-                    callBack.failure(e.getErrorCode()+e.getMessage());
+                } else {
+                    callBack.failure(e.getErrorCode() + e.getMessage());
                 }
             }
         });
     }
-        public Register.CallBack mCallBack;
-        public interface CallBack{
-            /**
-             * 成功
-             */
-            void success();
 
-            /**
-             * 失败
-             * @param error 后台访问失败错误码和错误信息
-             */
-            void failure(String error);
-        }
+    public interface CallBack {
+        /**
+         * 成功
+         */
+        void success();
+
+        /**
+         * 失败
+         *
+         * @param error 后台访问失败错误码和错误信息
+         */
+        void failure(String error);
+    }
 }

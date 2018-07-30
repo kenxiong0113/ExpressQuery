@@ -2,16 +2,18 @@ package com.ken.expressquery.view;
 
 import android.app.Dialog;
 import android.content.Context;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+
 import com.ken.expressquery.R;
+
 /**
  * 自定义加载dialog
+ *
  * @author by ken on 2018/5/17
- * */
+ */
 public class LoadingDialog {
     LVCircularRing mLoadingView;
     Dialog mLoadingDialog;
@@ -36,20 +38,21 @@ public class LoadingDialog {
                 LinearLayout.LayoutParams.MATCH_PARENT));
     }
 
-    public void setCancelable(boolean vrg){
+    public void setCancelable(boolean vrg) {
         // 设置返回键无效
         mLoadingDialog.setCancelable(vrg);
     }
-    public void show(){
+
+    public void show() {
         mLoadingDialog.show();
         mLoadingView.startAnim();
     }
 
-    public void dismiss(){
-        if (mLoadingDialog!=null) {
+    public void dismiss() {
+        if (mLoadingDialog != null) {
             mLoadingView.stopAnim();
             mLoadingDialog.dismiss();
-            mLoadingDialog=null;
+            mLoadingDialog = null;
         }
     }
 }

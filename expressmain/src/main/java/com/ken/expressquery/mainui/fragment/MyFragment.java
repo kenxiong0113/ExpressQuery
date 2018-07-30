@@ -44,15 +44,15 @@ public class MyFragment extends Fragment {
     private View view;
     private BmobUser bmobUser;
 
+    public MyFragment() {
+    }
+
     public static MyFragment newInstance(String param1) {
         MyFragment fragment = new MyFragment();
         Bundle args = new Bundle();
         args.putString("agrs1", param1);
         fragment.setArguments(args);
         return fragment;
-    }
-
-    public MyFragment() {
     }
 
     @Override
@@ -106,4 +106,6 @@ public class MyFragment extends Fragment {
         super.onDestroyView();
         unbinder.unbind();
     }
+
+
 }

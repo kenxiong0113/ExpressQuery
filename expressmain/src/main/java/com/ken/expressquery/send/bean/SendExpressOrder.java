@@ -8,13 +8,25 @@ import cn.bmob.v3.BmobObject;
  * 寄件订单请求数据实体类
  *
  * @author by ken on 2018/5/29
- * */
+ */
 public class SendExpressOrder extends BmobObject {
     String weight;
     String goodsType;
     User user;
     String cost;
     String leave;
+    /**
+     * 从2018000001开始自增
+     */
+    Integer orderNumber;
+    String packageNum;
+    String rAddress;
+    String rPhone;
+    String rName;
+    String sAddress;
+    String sName;
+    String sPhone;
+    String expressCompany;
 
     public String getLeave() {
         return leave;
@@ -39,17 +51,6 @@ public class SendExpressOrder extends BmobObject {
     public void setOrderNumber(Integer orderNumber) {
         this.orderNumber = orderNumber;
     }
-/** 从2018000001开始自增*/
-    Integer orderNumber;
-    String packageNum;
-    String rAddress;
-    String rPhone;
-    String rName;
-    String sAddress;
-    String sName;
-    String sPhone;
-    String expressCompany;
-
 
     public String getWeight() {
         return weight;
@@ -74,7 +75,6 @@ public class SendExpressOrder extends BmobObject {
     public void setUser(User user) {
         this.user = user;
     }
-
 
 
     public String getPackageNum() {

@@ -5,6 +5,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
 import com.ken.expressquery.R;
 
 /**
@@ -17,19 +18,20 @@ public class SendFragment extends Fragment implements
         View.OnClickListener {
 
     private View view;
+
+    public static SendFragment newInstance(String param1) {
+        SendFragment fragment = new SendFragment();
+        Bundle args = new Bundle();
+        args.putString("agrs1", param1);
+        fragment.setArguments(args);
+        return fragment;
+    }
+
     @Override
     public void onDestroy() {
         super.onDestroy();
     }
 
-
-    public static SendFragment newInstance(String param1) {
-    SendFragment fragment = new SendFragment();
-    Bundle args = new Bundle();
-    args.putString("agrs1", param1);
-    fragment.setArguments(args);
-    return fragment;
-}
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
