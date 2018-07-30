@@ -85,7 +85,9 @@ public class MyFragment extends Fragment {
 
                 break;
             case R.id.tv_up_version:
-                Beta.checkUpgrade(true,true);
+//                参数1：isManual 用户手动点击检查，非用户点击操作请传false
+//                参数2：isSilence 是否显示弹窗等交互，[true:没有弹窗和toast] [false:有弹窗或toast]
+                Beta.checkUpgrade(true,false);
                 break;
             case R.id.tv_exit:
                 //清除缓存用户对象

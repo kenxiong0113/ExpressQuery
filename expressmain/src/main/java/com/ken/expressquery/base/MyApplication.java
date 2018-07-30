@@ -40,7 +40,7 @@ public class MyApplication extends Application {
     public void onCreate() {
         super.onCreate();
 //        初始化bugly
-        Bugly.init(getApplicationContext(), "09af291644", false);
+        Bugly.init(getApplicationContext(), "09af291644", true);
         instances = this;
 //        初始化扫码库
         ZXingLibrary.initDisplayOpinion(this);
