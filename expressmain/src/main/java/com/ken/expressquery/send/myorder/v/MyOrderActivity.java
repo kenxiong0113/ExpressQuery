@@ -10,6 +10,7 @@ import com.ken.expressquery.base.BaseActivity;
 import com.ken.expressquery.base.BaseRecyclerAdapter;
 import com.ken.expressquery.base.BaseRecyclerHolder;
 import com.ken.expressquery.model.User;
+import com.ken.expressquery.network.NetworkUtils;
 import com.ken.expressquery.send.bean.ResultData;
 import com.ken.expressquery.send.myorder.p.OrderPer;
 
@@ -53,6 +54,16 @@ public class MyOrderActivity extends BaseActivity implements IViewOrder {
         initToolbar();
         setAdapter();
         loadData();
+    }
+
+    @Override
+    protected void onNetworkConnected(NetworkUtils.NetType type) {
+        // TODO: 2018/7/31 0031  
+    }
+
+    @Override
+    protected void onNetworkDisConnected() {
+
     }
 
     private void initToolbar() {

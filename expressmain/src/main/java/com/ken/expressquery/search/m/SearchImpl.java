@@ -6,7 +6,7 @@ import android.widget.Toast;
 
 import com.ken.expressquery.search.SearchFinishCallback;
 import com.ken.expressquery.threadpool.ThreadPoolProxyFactory;
-import com.ken.expressquery.utils.CheckCurrentNetwork;
+import com.ken.expressquery.network.NetworkUtils;
 
 import okhttp3.Call;
 import okhttp3.OkHttpClient;
@@ -54,16 +54,7 @@ public class SearchImpl implements SearchModel {
      */
     @Override
     public void search(Context mContext, final String vrg, final SearchFinishCallback callback) {
-        /**
-         * 检查网络是否可用
-         *
-         * wifi可用 1
-         * 移动网络可用 2
-         * 其他网络 0
-         * 网络不可用 -1
-         * */
-        if (CheckCurrentNetwork.isNetworkConnected(mContext) == 1 ||
-                CheckCurrentNetwork.isNetworkConnected(mContext) == 2) {
+
             buffer = new StringBuffer();
 //            清空buffer
             buffer.setLength(0);
@@ -101,9 +92,7 @@ public class SearchImpl implements SearchModel {
                 }
             };
             ThreadPoolProxyFactory.getNormalThreadPoolProxy().execute(query);
-        } else {
-            Toast.makeText(mContext, "网络不可用，请检查网络设置", Toast.LENGTH_SHORT).show();
-        }
+
     }
 
 

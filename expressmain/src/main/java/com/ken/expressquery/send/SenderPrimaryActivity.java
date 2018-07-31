@@ -19,6 +19,7 @@ import com.ken.expressquery.base.BaseActivity;
 import com.ken.expressquery.management.address.v.ManageAddressActivity;
 import com.ken.expressquery.map.p.LocationPre;
 import com.ken.expressquery.map.v.LocationView;
+import com.ken.expressquery.network.NetworkUtils;
 import com.ken.expressquery.send.adapter.CommonFunctionsAdapter;
 import com.ken.expressquery.send.appointment.v.SendExpressActivity;
 import com.ken.expressquery.send.myorder.v.MyOrderActivity;
@@ -97,6 +98,16 @@ public class SenderPrimaryActivity extends BaseActivity implements
         //        先定位，把定位信息存到本地持久化数据库SP，然后根据SP获取定位信息
         locationPre.locationPre();
         getLocation();
+    }
+
+    @Override
+    protected void onNetworkConnected(NetworkUtils.NetType type) {
+        // TODO: 2018/7/31 0031  
+    }
+
+    @Override
+    protected void onNetworkDisConnected() {
+
     }
 
     private void initToolbar() {

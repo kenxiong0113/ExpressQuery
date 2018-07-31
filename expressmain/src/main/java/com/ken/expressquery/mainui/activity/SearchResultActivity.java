@@ -25,6 +25,7 @@ import com.ken.expressquery.dbgreendao.express.ExpressQuery;
 import com.ken.expressquery.dbgreendao.express.ExpressUpdate;
 import com.ken.expressquery.greendao.ExpressInfoDao;
 import com.ken.expressquery.model.ExpressInfo;
+import com.ken.expressquery.network.NetworkUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -82,7 +83,7 @@ public class SearchResultActivity extends BaseActivity {
     private String state;
     private List<ExpressInfo.LogisticsTrack> mTracesList = new ArrayList<>();
     private BaseRecyclerAdapter<ExpressInfo.LogisticsTrack> mAdapter;
-    private String TAG = SearchResultActivity.class.getName();
+    private static final String TAG = "SearchResultActivity";
     private String result;
     private Context mContext;
     private int state_code = -2;
@@ -108,6 +109,19 @@ public class SearchResultActivity extends BaseActivity {
         setAdapter();
 //        加载快递基本信息
         loadNetworkData(result);
+    }
+
+    @Override
+    protected void onNetworkConnected(NetworkUtils.NetType type) {
+        // TODO: 2018/7/31 0031
+        if (type != null){
+            showNetErrorDialog(mContext);
+        }
+    }
+
+    @Override
+    protected void onNetworkDisConnected() {
+
     }
 
     /**

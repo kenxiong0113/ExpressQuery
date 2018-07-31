@@ -1,5 +1,11 @@
 package com.ken.expressquery.base.bean;
 
+/**
+ * 底部弹窗的数据列表实体类
+ *
+ * @author by ken on 2018//7/31
+ *
+ * */
 public class PopList {
     String content;
 

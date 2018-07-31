@@ -7,8 +7,8 @@ android {
         applicationId "com.ken.expressquery"
         minSdkVersion 21
         targetSdkVersion 27
-        versionCode 1
-        versionName "1.1.1"
+        versionCode 7
+        versionName "1.1.7"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         multiDexEnabled true
         ndk {

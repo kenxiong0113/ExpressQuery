@@ -21,6 +21,7 @@ import com.ken.expressquery.management.AddAddressActivity;
 import com.ken.expressquery.management.address.p.AddressPre;
 import com.ken.expressquery.management.bean.AddressBook;
 import com.ken.expressquery.model.User;
+import com.ken.expressquery.network.NetworkUtils;
 import com.ken.expressquery.view.LoadingDialog;
 
 import java.util.ArrayList;
@@ -73,6 +74,16 @@ public class ManageAddressActivity extends BaseActivity implements AddressView {
         initToolBar(type);
         setAdapter();
         loadData();
+
+    }
+
+    @Override
+    protected void onNetworkConnected(NetworkUtils.NetType type) {
+        // TODO: 2018/7/31 0031  
+    }
+
+    @Override
+    protected void onNetworkDisConnected() {
 
     }
 

@@ -18,6 +18,7 @@
             android:layout_height="wrap_content"
             android:text="111111"/>
     </android.support.v7.widget.Toolbar>
+
     <FrameLayout
         android:id="@+id/viewContent"
         android:layout_width="match_parent"

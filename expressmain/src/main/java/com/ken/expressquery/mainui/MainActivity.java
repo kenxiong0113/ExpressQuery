@@ -11,11 +11,15 @@ import android.widget.FrameLayout;
 import com.ashokvarma.bottomnavigation.BottomNavigationBar;
 import com.ashokvarma.bottomnavigation.BottomNavigationItem;
 import com.ken.expressquery.R;
+import com.ken.expressquery.base.BaseConstant;
+import com.ken.expressquery.base.MyApplication;
 import com.ken.expressquery.mainui.fragment.HomeFragment;
 import com.ken.expressquery.mainui.fragment.MyFragment;
 import com.ken.expressquery.mainui.fragment.SearchExpressFragment;
 import com.ken.expressquery.mainui.fragment.SendFragment;
 import com.ken.expressquery.utils.ExitPressed;
+import com.tencent.bugly.Bugly;
+import com.tencent.bugly.beta.Beta;
 
 import java.util.ArrayList;
 
@@ -44,8 +48,11 @@ public class MainActivity extends AppCompatActivity implements
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
+
+        Beta.checkUpgrade(false,false);
         mContext = getApplicationContext();
         initWidget();
+
     }
 
     private void initWidget() {

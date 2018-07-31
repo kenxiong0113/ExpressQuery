@@ -37,6 +37,7 @@ import com.ken.expressquery.management.address.p.AddressPre;
 import com.ken.expressquery.management.address.v.AddressView;
 import com.ken.expressquery.management.bean.AddressBook;
 import com.ken.expressquery.model.User;
+import com.ken.expressquery.network.NetworkUtils;
 import com.ken.expressquery.send.appointment.p.SendExpressPre;
 import com.ken.expressquery.send.bean.ResultData;
 import com.ken.expressquery.send.bean.SendExpressOrder;
@@ -248,6 +249,16 @@ public class SendExpressActivity extends BaseActivity implements SendExpressView
         initView();
         getSendAddressInfo();
         getReceiveAddressInfo();
+    }
+
+    @Override
+    protected void onNetworkConnected(NetworkUtils.NetType type) {
+        // TODO: 2018/7/31 0031  
+    }
+
+    @Override
+    protected void onNetworkDisConnected() {
+
     }
 
     /**

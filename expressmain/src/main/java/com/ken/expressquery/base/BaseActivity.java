@@ -1,16 +1,27 @@
 package com.ken.expressquery.base;
 
+import android.app.Dialog;
+import android.content.Context;
+import android.content.IntentFilter;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.FrameLayout;
 import android.widget.TextView;
 
 import com.ken.expressquery.R;
+import com.ken.expressquery.network.NetChangeObserver;
+import com.ken.expressquery.network.NetStateReceiver;
+import com.ken.expressquery.network.NetworkUtils;
 
 
 /**
@@ -26,14 +37,16 @@ public abstract class BaseActivity extends AppCompatActivity {
     OnClickListener onClickListenerTopRight;
     int menuResId;
     String menuStr;
+    Dialog dialog;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.base_toolbar);
-        toolbar = (Toolbar) findViewById(R.id.toolbar);
-        viewContent = (FrameLayout) findViewById(R.id.viewContent);
-        tvTitle = (TextView) findViewById(R.id.tvTitle);
+        toolbar = findViewById(R.id.toolbar);
+        viewContent = findViewById(R.id.viewContent);
+        tvTitle = findViewById(R.id.tvTitle);
         //将继承 TopBarBaseActivity 的布局解析到 FrameLayout 里面
         LayoutInflater.from(this).inflate(getContentView(), viewContent);
         //初始化设置 Toolbar
@@ -41,6 +54,7 @@ public abstract class BaseActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         init(savedInstanceState);
 
+        broadcastReceiver();
     }
 
     protected void setTitle(String title) {
@@ -125,4 +139,58 @@ public abstract class BaseActivity extends AppCompatActivity {
          */
         void onClick();
     }
+
+    void broadcastReceiver(){
+        IntentFilter intentFilter = new IntentFilter();
+        intentFilter.addAction(BaseConstant.NET_CHANGE_ACTION);
+        registerReceiver(NetStateReceiver.getInstance(),intentFilter);
+
+        NetChangeObserver observer = new NetChangeObserver() {
+            @Override
+            public void onNetConnected(NetworkUtils.NetType type) {
+                onNetworkConnected(type);
+            }
+
+            @Override
+            public void onNetDisConnect() {
+                onNetworkDisConnected();
+            }
+        };
+
+        NetStateReceiver.registerObserver(observer);
+
+    }
+
+    /**
+     * 网络连接状态
+     *
+     * @param type 网络状态
+     */
+    protected abstract void onNetworkConnected(NetworkUtils.NetType type);
+
+    /**
+     * 网络断开的时候调用
+     */
+    protected abstract void onNetworkDisConnected();
+
+
+    public void showNetErrorDialog(Context context){
+        if (dialog == null){
+            dialog = new Dialog(context);
+            Window window = dialog.getWindow();
+            WindowManager.LayoutParams layoutParams = window.getAttributes();
+            layoutParams.gravity = Gravity.TOP;
+            layoutParams.width = WindowManager.LayoutParams.MATCH_PARENT;
+            window.setAttributes(layoutParams);
+            dialog.setCancelable(false);
+            View view = LayoutInflater.from(context).inflate(R.layout.layout_network,null);
+            dialog.setContentView(view);
+            dialog.show();
+        }else {
+            dialog.dismiss();
+        }
+
+    }
+
+
 }

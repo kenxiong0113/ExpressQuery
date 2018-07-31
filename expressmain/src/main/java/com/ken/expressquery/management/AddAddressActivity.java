@@ -19,6 +19,7 @@ import com.ken.expressquery.management.address.p.AddressPre;
 import com.ken.expressquery.management.address.v.AddressView;
 import com.ken.expressquery.management.bean.AddressBook;
 import com.ken.expressquery.model.User;
+import com.ken.expressquery.network.NetworkUtils;
 import com.ken.expressquery.utils.InterceptAddressInfo;
 import com.ken.expressquery.view.LoadingDialog;
 
@@ -89,6 +90,18 @@ public class AddAddressActivity extends BaseActivity implements CityPickerListen
         type = getIntent().getIntExtra("AddressType", 0);
         initUI(type);
         pre = new AddressPre(this);
+    }
+
+    @Override
+    protected void onNetworkConnected(NetworkUtils.NetType type) {
+        if (type !=null){
+            showDialog();
+        }
+    }
+
+    @Override
+    protected void onNetworkDisConnected() {
+
     }
 
     /**

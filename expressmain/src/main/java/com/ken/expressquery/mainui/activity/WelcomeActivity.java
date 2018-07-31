@@ -12,6 +12,7 @@ import android.view.WindowManager;
 import com.ken.expressquery.R;
 import com.ken.expressquery.mainui.MainActivity;
 import com.ken.expressquery.utils.PermissionHelper;
+import com.tencent.bugly.beta.Beta;
 
 import cn.bmob.v3.Bmob;
 import cn.bmob.v3.BmobUser;
@@ -32,6 +33,7 @@ public class WelcomeActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         // 设置全屏
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         // 移除标题栏

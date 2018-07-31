@@ -7,12 +7,17 @@ package com.ken.expressquery.base;
  */
 public class BaseConstant {
 
+    public final static String NET_CHANGE_ACTION = "android.net.conn.CONNECTIVITY_CHANGE";
+    /**
+     * Bugly 应用升级appid
+     */
+    public final static String BUGLY_APP_ID = "09af291644";
     /**
      * Bmob APP_KEY
      */
     public final static String BMOB_APP_KEY = "ec859510598bf688d0ab051f3d60d52c";
     /**
-     * 阿里云云市场API 通用 APPCODE
+     * 阿里云云市场API 通用 APP_CODE
      */
     public final static String APP_CODE = "9ba9b3c6ecc6459cbb3b8ed04dceecad";
     public final static String HEADER = "Authorization";
@@ -48,17 +53,12 @@ public class BaseConstant {
     public final static String WEATHER_PATH_AQI = "/whapi/json/alicityweather/briefaqi";
 
     /**
-     * 有米广告SDK 相关
-     */
-
-    public final static String APP_ID = "772ee3c7dac39da0";
-    public final static String APP_SECRET = "e72bc9f28029eee0";
-    /**
      * UI相关
      */
     public static final int SHOW_DIALOG = 0x0002;
     public static final int DISMISS_DIALOG = 0x0003;
     public static final int SHOW_TOAST = 0x0004;
+
     /**
      * 扫码回调code
      */
@@ -103,6 +103,9 @@ public class BaseConstant {
     /**正式请求url*/
     //public final static String ReqURL = "http://api.kdniao.cc/api/OOrderService";
 
+    /**
+     * 程序退出
+     */
     public static class RunTime {
         public static final int TIME = 2000;
         public static long EXIT_TIME = 0;
