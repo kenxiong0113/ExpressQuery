@@ -39,6 +39,7 @@ import me.leefeng.citypicker.CityPickerListener;
  * @author by ken on 2018/5/27
  */
 public class AddAddressActivity extends BaseActivity implements CityPickerListener, AddressView {
+    private static final String TAG = "AddAddressActivity";
     @BindView(R.id.tv_name)
     TextView tvName;
     @BindView(R.id.et_name)

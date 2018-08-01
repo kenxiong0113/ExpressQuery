@@ -9,13 +9,17 @@ import com.ken.expressquery.R;
 import com.ken.expressquery.greendao.DaoMaster;
 import com.ken.expressquery.greendao.DaoSession;
 import com.ken.expressquery.mainui.MainActivity;
+import com.ken.expressquery.network.NetStateReceiver;
 import com.orhanobut.logger.AndroidLogAdapter;
 import com.orhanobut.logger.Logger;
 import com.tencent.bugly.Bugly;
 import com.tencent.bugly.beta.Beta;
 import com.uuzuche.lib_zxing.activity.ZXingLibrary;
 
+import cn.bmob.v3.Bmob;
 import es.dmoral.toasty.Toasty;
+
+import static com.ken.expressquery.base.BaseConstant.BMOB_APP_KEY;
 
 
 /**
@@ -47,6 +51,8 @@ import es.dmoral.toasty.Toasty;
  */
 
 public class MyApplication extends Application {
+    private static final String TAG = "MyApplication";
+
     @Override
     protected void attachBaseContext(Context base) {
         super.attachBaseContext(base);
@@ -68,10 +74,12 @@ public class MyApplication extends Application {
     public void onCreate() {
         super.onCreate();
         instances = this;
-
+        NetStateReceiver.registerNetworkStateReceiver(this);
         initBugly();
 //        初始化扫码库
         ZXingLibrary.initDisplayOpinion(this);
+//初始化BmobSDK
+        Bmob.initialize(this, BMOB_APP_KEY);
 //        初始化Logger{https://github.com/orhanobut/logger}
         Logger.addLogAdapter(new AndroidLogAdapter());
 
@@ -176,4 +184,10 @@ public class MyApplication extends Application {
 
     }
 
+    @Override
+    public void onLowMemory() {
+        super.onLowMemory();
+
+
+    }
 }

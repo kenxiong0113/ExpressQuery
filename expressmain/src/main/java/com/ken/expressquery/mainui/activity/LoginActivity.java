@@ -11,7 +11,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.ken.expressquery.R;
+import com.ken.expressquery.base.BaseActivity;
 import com.ken.expressquery.mainui.MainActivity;
+import com.ken.expressquery.network.NetworkUtils;
 import com.ken.expressquery.user.Login;
 import com.ken.expressquery.utils.ExitPressed;
 
@@ -23,7 +25,7 @@ import butterknife.OnClick;
  * @author by ken on 2017/9/11.
  * 登录活动界面
  */
-public class LoginActivity extends AppCompatActivity {
+public class LoginActivity extends BaseActivity {
     private final static int PHONE_LENGTH = 11;
     @BindView(R.id.et_phone)
     EditText etPhone;
@@ -45,10 +47,28 @@ public class LoginActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login);
+    }
+
+    @Override
+    protected int getContentView() {
+        return R.layout.activity_login;
+    }
+
+    @Override
+    protected void init(Bundle savedInstanceState) {
         ButterKnife.bind(this);
         mContext = getApplicationContext();
+        toolbar.setVisibility(View.GONE);
+    }
 
+    @Override
+    protected void onNetworkConnected(NetworkUtils.NetType type) {
+        showNetErrorView();
+    }
+
+    @Override
+    protected void onNetworkDisConnected() {
+        dismissNetErrorView();
     }
 
 

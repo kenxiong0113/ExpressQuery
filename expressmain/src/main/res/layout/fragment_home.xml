@@ -20,6 +20,13 @@
         android:layout_height="match_parent"
         android:layout_below="@+id/rl_bg_ad"
         android:id="@+id/refresh_layout">
+        <TextView
+            android:id="@+id/tv_empty"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="没有查询记录"
+            android:visibility="gone"
+            android:gravity="center"/>
     <android.support.v7.widget.RecyclerView
         android:id="@+id/rcy_home"
         android:layout_width="match_parent"

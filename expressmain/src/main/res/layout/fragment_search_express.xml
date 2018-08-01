@@ -46,7 +46,13 @@
                 android:text="@string/history"
                 android:background="@color/gray300"
                 android:layout_below="@+id/btn_search"/>
-
+            <TextView
+                android:id="@+id/tv_empty"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="无历史查询记录"
+                android:visibility="gone"
+                android:layout_centerInParent="true"/>
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/rv_history"
                 android:layout_width="match_parent"

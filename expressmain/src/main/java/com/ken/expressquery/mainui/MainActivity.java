@@ -5,20 +5,18 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v7.app.AppCompatActivity;
+import android.view.View;
 import android.widget.FrameLayout;
 
 import com.ashokvarma.bottomnavigation.BottomNavigationBar;
 import com.ashokvarma.bottomnavigation.BottomNavigationItem;
 import com.ken.expressquery.R;
-import com.ken.expressquery.base.BaseConstant;
-import com.ken.expressquery.base.MyApplication;
+import com.ken.expressquery.base.BaseActivity;
 import com.ken.expressquery.mainui.fragment.HomeFragment;
 import com.ken.expressquery.mainui.fragment.MyFragment;
 import com.ken.expressquery.mainui.fragment.SearchExpressFragment;
-import com.ken.expressquery.mainui.fragment.SendFragment;
+import com.ken.expressquery.network.NetworkUtils;
 import com.ken.expressquery.utils.ExitPressed;
-import com.tencent.bugly.Bugly;
 import com.tencent.bugly.beta.Beta;
 
 import java.util.ArrayList;
@@ -30,7 +28,7 @@ import butterknife.ButterKnife;
  * @author by ken on 2018/4/25
  * 活动主界面
  */
-public class MainActivity extends AppCompatActivity implements
+public class MainActivity extends BaseActivity implements
         BottomNavigationBar.OnTabSelectedListener {
     @BindView(R.id.lay_frame)
     FrameLayout layFrame;
@@ -39,23 +37,49 @@ public class MainActivity extends AppCompatActivity implements
     private HomeFragment homeFragment;
     private SearchExpressFragment searchExpressFragment;
     private MyFragment myFragment;
-    private SendFragment sendFragment;
     private ArrayList<Fragment> fragments;
     private Context mContext;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-        ButterKnife.bind(this);
-
-        Beta.checkUpgrade(false,false);
-        mContext = getApplicationContext();
-        initWidget();
-
     }
 
-    private void initWidget() {
+    @Override
+    protected int getContentView() {
+        return R.layout.activity_main;
+    }
+
+    @Override
+    protected void init(Bundle savedInstanceState) {
+        ButterKnife.bind(this);
+        Beta.checkUpgrade(false,false);
+        toolbar.setVisibility(View.GONE);
+        mContext = getApplicationContext();
+        initBottomBar();
+
+        if (NetworkUtils.isNetworkConnected(this) == null){
+            // TODO: 2018/8/1 0001 判断网络类型=
+            onNetworkConnected(null);
+        }else {
+            onNetworkDisConnected();
+        }
+    }
+
+    @Override
+    protected void onNetworkConnected(NetworkUtils.NetType type) {
+        showNetErrorView();
+    }
+
+    @Override
+    protected void onNetworkDisConnected() {
+        dismissNetErrorView();
+    }
+
+    /**
+     * 初始化底部导航栏
+     * */
+    private void initBottomBar() {
         bottomNavigationBar.setMode(BottomNavigationBar.MODE_FIXED);
         bottomNavigationBar.setBackgroundStyle(BottomNavigationBar.BACKGROUND_STYLE_STATIC);
         bottomNavigationBar.addItem(new BottomNavigationItem(R.drawable.bottom_bar_ic_home, getString(R.string.shouye))
@@ -72,7 +96,7 @@ public class MainActivity extends AppCompatActivity implements
 
 
     /**
-     * 设置默认的
+     * 设置默认的fragment
      */
     private void setDefaultFragment() {
         FragmentManager fm = getSupportFragmentManager();
@@ -96,10 +120,6 @@ public class MainActivity extends AppCompatActivity implements
                 searchExpressFragment = SearchExpressFragment.newInstance(getString(R.string.find));
                 transaction.replace(R.id.lay_frame, searchExpressFragment);
                 break;
-//            case 2:
-//                sendFragment = SendFragment.newInstance(getString(R.string.iiiegal_inquiry));
-//                transaction.replace(R.id.lay_frame, sendFragment);
-//                break;
             case 2:
                 myFragment = MyFragment.newInstance(getString(R.string.my));
                 transaction.replace(R.id.lay_frame, myFragment);

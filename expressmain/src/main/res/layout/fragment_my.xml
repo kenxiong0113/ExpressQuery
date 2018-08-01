@@ -43,11 +43,21 @@
         />
 </RelativeLayout>
     <TextView
-        android:id="@+id/tv_my_often_address"
+        android:id="@+id/tv_often_r_address"
         android:layout_width="match_parent"
         android:layout_height="@dimen/height50"
         android:background="@color/orange"
         android:text="@string/my_often_address"
+        android:gravity="center"
+        android:textSize="@dimen/dimen16" />
+
+
+    <TextView
+        android:id="@+id/tv_often_s_address"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/height50"
+        android:background="#8470FF"
+        android:text="@string/often_s_address"
         android:gravity="center"
         android:textSize="@dimen/dimen16" />
     <TextView

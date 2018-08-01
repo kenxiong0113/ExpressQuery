@@ -89,12 +89,12 @@ public class AddressBookActivity extends BaseActivity implements AddressView {
 
     @Override
     protected void onNetworkConnected(NetworkUtils.NetType type) {
-        // TODO: 2018/7/31 0031
+        showNetErrorView();
     }
 
     @Override
     protected void onNetworkDisConnected() {
-
+        dismissNetErrorView();
     }
 
     private void initToolbar(final int book) {

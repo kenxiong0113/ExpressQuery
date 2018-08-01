@@ -1,59 +1,64 @@
 package com.ken.expressquery.base;
 
-import android.app.Dialog;
 import android.content.Context;
-import android.content.IntentFilter;
 import android.os.Bundle;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
-import android.view.Gravity;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.Window;
-import android.view.WindowManager;
 import android.widget.FrameLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.ken.expressquery.R;
 import com.ken.expressquery.network.NetChangeObserver;
 import com.ken.expressquery.network.NetStateReceiver;
 import com.ken.expressquery.network.NetworkUtils;
+import com.ken.expressquery.view.NetDialog;
 
 
 /**
  * @author by ken on 2017/4/14.
+ * <p>
  * 封装基础Activity,包含toolbar的初始化
  */
 
 public abstract class BaseActivity extends AppCompatActivity {
-    Toolbar toolbar;
-    FrameLayout viewContent;
-    TextView tvTitle;
-    OnClickListener onClickListenerTopLeft;
-    OnClickListener onClickListenerTopRight;
-    int menuResId;
-    String menuStr;
-    Dialog dialog;
+    private static final String TAG = "BaseActivity";
+    public Toolbar toolbar;
+    private FrameLayout viewContent;
+    private TextView tvTitle;
+    private OnClickListener onClickListenerTopLeft;
+    private OnClickListener onClickListenerTopRight;
+    private int menuResId;
+    private String menuStr;
+    private NetDialog dialog;
+    private NetChangeObserver observer;
+    RelativeLayout netError;
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.base_toolbar);
         toolbar = findViewById(R.id.toolbar);
-        viewContent = findViewById(R.id.viewContent);
         tvTitle = findViewById(R.id.tvTitle);
+        netError = findViewById(R.id.net_error);
+        viewContent = findViewById(R.id.viewContent);
         //将继承 TopBarBaseActivity 的布局解析到 FrameLayout 里面
         LayoutInflater.from(this).inflate(getContentView(), viewContent);
         //初始化设置 Toolbar
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         init(savedInstanceState);
-
         broadcastReceiver();
     }
 
@@ -140,12 +145,8 @@ public abstract class BaseActivity extends AppCompatActivity {
         void onClick();
     }
 
-    void broadcastReceiver(){
-        IntentFilter intentFilter = new IntentFilter();
-        intentFilter.addAction(BaseConstant.NET_CHANGE_ACTION);
-        registerReceiver(NetStateReceiver.getInstance(),intentFilter);
-
-        NetChangeObserver observer = new NetChangeObserver() {
+    void broadcastReceiver() {
+        observer = new NetChangeObserver() {
             @Override
             public void onNetConnected(NetworkUtils.NetType type) {
                 onNetworkConnected(type);
@@ -158,6 +159,7 @@ public abstract class BaseActivity extends AppCompatActivity {
         };
 
         NetStateReceiver.registerObserver(observer);
+        Log.e(TAG, "broadcastReceiver: 注册广播接收器");
 
     }
 
@@ -174,23 +176,16 @@ public abstract class BaseActivity extends AppCompatActivity {
     protected abstract void onNetworkDisConnected();
 
 
-    public void showNetErrorDialog(Context context){
-        if (dialog == null){
-            dialog = new Dialog(context);
-            Window window = dialog.getWindow();
-            WindowManager.LayoutParams layoutParams = window.getAttributes();
-            layoutParams.gravity = Gravity.TOP;
-            layoutParams.width = WindowManager.LayoutParams.MATCH_PARENT;
-            window.setAttributes(layoutParams);
-            dialog.setCancelable(false);
-            View view = LayoutInflater.from(context).inflate(R.layout.layout_network,null);
-            dialog.setContentView(view);
-            dialog.show();
-        }else {
-            dialog.dismiss();
-        }
+    public void showNetErrorView() {
+            Log.e(TAG, "showNetErrorView: 显示dialog" );
+        netError.setVisibility(View.VISIBLE);
 
     }
 
+
+    public void dismissNetErrorView() {
+        Log.e(TAG, "dismissNetErrorView: 隐藏dialog");
+        netError.setVisibility(View.GONE);
+    }
 
 }

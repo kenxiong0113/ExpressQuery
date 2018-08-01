@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import com.ken.expressquery.R;
 import com.ken.expressquery.mainui.activity.LoginActivity;
+import com.ken.expressquery.management.address.v.ManageAddressActivity;
 import com.tencent.bugly.beta.Beta;
 
 import butterknife.BindView;
@@ -33,13 +34,15 @@ public class MyFragment extends Fragment {
     TextView tvUsername;
     @BindView(R.id.user_layout)
     RelativeLayout userLayout;
-    @BindView(R.id.tv_my_often_address)
+    @BindView(R.id.tv_often_r_address)
     TextView tvMyOftenAddress;
     @BindView(R.id.tv_exit)
     TextView tvExit;
     Unbinder unbinder;
     @BindView(R.id.tv_up_version)
     TextView tvUpVersion;
+    @BindView(R.id.tv_often_s_address)
+    TextView tvOftenSAddress;
     private View view;
     private BmobUser bmobUser;
 
@@ -76,18 +79,26 @@ public class MyFragment extends Fragment {
         }
     }
 
-    @OnClick({R.id.tv_my_often_address, R.id.tv_exit, R.id.tv_up_version})
+    @OnClick({R.id.tv_often_r_address, R.id.tv_exit, R.id.tv_up_version, R.id.tv_often_s_address})
     public void onListener(View view) {
         int msg = view.getId();
         switch (msg) {
-            case R.id.tv_my_often_address:
-                //我的常用地址
-
+            case R.id.tv_often_r_address:
+                //管理收件地址
+                Intent intent = new Intent(getActivity(), ManageAddressActivity.class);
+                intent.putExtra("AddressType", 2);
+                startActivity(intent);
+                break;
+            case R.id.tv_often_s_address:
+//                    寄件地址
+                Intent intent1 = new Intent(getActivity(), ManageAddressActivity.class);
+                intent1.putExtra("AddressType", 1);
+                startActivity(intent1);
                 break;
             case R.id.tv_up_version:
 //                参数1：isManual 用户手动点击检查，非用户点击操作请传false
 //                参数2：isSilence 是否显示弹窗等交互，[true:没有弹窗和toast] [false:有弹窗或toast]
-                Beta.checkUpgrade(true,false);
+                Beta.checkUpgrade(true, false);
                 break;
             case R.id.tv_exit:
                 //清除缓存用户对象

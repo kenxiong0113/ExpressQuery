@@ -253,7 +253,7 @@ public class SendExpressActivity extends BaseActivity implements SendExpressView
 
     @Override
     protected void onNetworkConnected(NetworkUtils.NetType type) {
-        // TODO: 2018/7/31 0031  
+        showNetErrorView();
     }
 
     @Override

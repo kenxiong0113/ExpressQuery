@@ -4,15 +4,14 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
-import android.view.Window;
-import android.view.WindowManager;
+import android.view.View;
 
 import com.ken.expressquery.R;
+import com.ken.expressquery.base.BaseActivity;
 import com.ken.expressquery.mainui.MainActivity;
+import com.ken.expressquery.network.NetworkUtils;
 import com.ken.expressquery.utils.PermissionHelper;
-import com.tencent.bugly.beta.Beta;
 
 import cn.bmob.v3.Bmob;
 import cn.bmob.v3.BmobUser;
@@ -24,7 +23,7 @@ import static com.ken.expressquery.base.BaseConstant.BMOB_APP_KEY;
  * 启动欢迎活动界面
  */
 
-public class WelcomeActivity extends AppCompatActivity {
+public class WelcomeActivity extends BaseActivity {
     BmobUser bmobUser;
     private PermissionHelper mPermissionHelper;
     private Context mContext;
@@ -33,14 +32,16 @@ public class WelcomeActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+    }
 
-        // 设置全屏
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
-        // 移除标题栏
-        requestWindowFeature(Window.FEATURE_NO_TITLE);
-        setContentView(R.layout.activity_welcome);
-        //初始化BmobSDK
-        Bmob.initialize(this, BMOB_APP_KEY);
+    @Override
+    protected int getContentView() {
+        return R.layout.activity_welcome;
+    }
+
+    @Override
+    protected void init(Bundle savedInstanceState) {
+        toolbar.setVisibility(View.GONE);
         mContext = getApplicationContext();
         // 当系统为6.0以上时，需要申请权限
         mPermissionHelper = new PermissionHelper(this);
@@ -66,6 +67,15 @@ public class WelcomeActivity extends AppCompatActivity {
                 mPermissionHelper.applyPermissions();
             }
         }
+    }
+
+    @Override
+    protected void onNetworkConnected(NetworkUtils.NetType type) {
+
+    }
+
+    @Override
+    protected void onNetworkDisConnected() {
 
     }
 

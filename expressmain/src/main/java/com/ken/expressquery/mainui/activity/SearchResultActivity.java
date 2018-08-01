@@ -113,15 +113,12 @@ public class SearchResultActivity extends BaseActivity {
 
     @Override
     protected void onNetworkConnected(NetworkUtils.NetType type) {
-        // TODO: 2018/7/31 0031
-        if (type != null){
-            showNetErrorDialog(mContext);
-        }
+        showNetErrorView();
     }
 
     @Override
     protected void onNetworkDisConnected() {
-
+        dismissNetErrorView();
     }
 
     /**

@@ -1,5 +1,6 @@
 package com.ken.expressquery.mainui.fragment;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -79,6 +80,8 @@ public class SearchExpressFragment extends Fragment implements SearchExpressView
     ImageView imgSendExpress;
     @BindView(R.id.img_run)
     ImageView imgRun;
+    @BindView(R.id.tv_empty)
+    TextView tvEmpty;
     private View view;
     private BaseRecyclerAdapter<ExpressInfo> adapter;
     private List<ExpressInfo> mExpressInfoList = new ArrayList<>();
@@ -89,6 +92,7 @@ public class SearchExpressFragment extends Fragment implements SearchExpressView
      * 更新UI
      * 在UI线程中
      */
+    @SuppressLint("HandlerLeak")
     public Handler handler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
@@ -250,6 +254,11 @@ public class SearchExpressFragment extends Fragment implements SearchExpressView
         ExpressQuery.getInstances().query(mDao, null, new ExpressCallBack() {
             @Override
             public void trajectoryInformation(List<ExpressInfo> mList) {
+                if (mList.size() <= 0){
+                    tvEmpty.setVisibility(View.VISIBLE);
+                }else {
+                    tvEmpty.setVisibility(View.GONE);
+                }
                 for (ExpressInfo info : mList) {
                     String name = info.getName();
                     if (name == null) {

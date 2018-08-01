@@ -28,11 +28,13 @@ public class NetworkUtils {
                 .getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo mNetworkInfo = mConnectivityManager.getActiveNetworkInfo();
         if (mNetworkInfo != null) {
+            Log.e(TAG, "isNetworkConnected: "+mNetworkInfo.getType() );
+            Log.e(TAG, "isNetworkConnected: ConnectivityManager:"+ConnectivityManager.TYPE_WIFI );
             if (mNetworkInfo.getType() == ConnectivityManager.TYPE_WIFI) {
-                Log.e("NetworkUtils", "WIFI可用");
+                Log.e(TAG, "WIFI可用");
                 return NetType.WIFI;
             } else if (mNetworkInfo.getType() == ConnectivityManager.TYPE_MOBILE) {
-                Log.e("NetworkUtils", "手机移动网可用");
+                Log.e(TAG, "手机移动网可用");
                 return NetType.MOBILE_NETWORK;
             } else {
                 return NetType.OTHER;

@@ -1,5 +1,6 @@
 package com.ken.expressquery.mainui.fragment;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
@@ -14,6 +15,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
@@ -54,6 +57,10 @@ public class HomeFragment extends Fragment implements View.OnClickListener,
     @BindView(R.id.refresh_layout)
     SwipeRefreshLayout swipeRefreshLayout;
     Unbinder unbinder;
+    @BindView(R.id.rl_bg_ad)
+    RelativeLayout rlBgAd;
+    @BindView(R.id.tv_empty)
+    TextView tvEmpty;
     private LoadingDialog dialog;
     private String no;
     private View view;
@@ -65,6 +72,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener,
      * 更新UI
      * 在UI线程中
      */
+    @SuppressLint("HandlerLeak")
     public Handler handler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
@@ -166,7 +174,11 @@ public class HomeFragment extends Fragment implements View.OnClickListener,
         ExpressQuery.getInstances().query(mDao, null, new ExpressCallBack() {
             @Override
             public void trajectoryInformation(List<ExpressInfo> mList) {
-
+                if (mList.size() <= 0) {
+                    tvEmpty.setVisibility(View.VISIBLE);
+                }else {
+                    tvEmpty.setVisibility(View.GONE);
+                }
                 for (ExpressInfo info : mList) {
                     if (info.getName() != null) {
                         mExpressInfoList.add(new ExpressInfo(

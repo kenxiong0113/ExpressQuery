@@ -3,10 +3,14 @@ package com.ken.expressquery.network;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
+import android.util.Log;
 
 import com.ken.expressquery.base.BaseConstant;
 
 import java.util.ArrayList;
+
+import static com.ken.expressquery.base.BaseConstant.NET_CHANGE_ACTION;
 
 
 /**
@@ -15,7 +19,8 @@ import java.util.ArrayList;
  * @author by ken on 2018/7/31
  * */
 public class NetStateReceiver extends BroadcastReceiver {
-    private static ArrayList<NetChangeObserver> mNetChangeObservers;
+    private static final String TAG = "NetStateReceiver";
+    private static ArrayList<NetChangeObserver> mNetChangeObservers = new ArrayList<NetChangeObserver>();
     private static NetStateReceiver instance;
 
     private static boolean isNetAvailable = false;
@@ -37,9 +42,9 @@ public class NetStateReceiver extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
-        if (intent.getAction().equalsIgnoreCase(BaseConstant.NET_CHANGE_ACTION)){
+        if (intent.getAction().equalsIgnoreCase(NET_CHANGE_ACTION)){
             if (NetworkUtils.isNetworkConnected(context) == null){
-                isNetAvailable = false;
+                isNetAvailable = true;
                 if (NetworkUtils.isNetworkConnected(context) == NetworkUtils.NetType.WIFI){
                     mNetType = NetworkUtils.NetType.WIFI;
                 }else if (NetworkUtils.isNetworkConnected(context) == NetworkUtils.NetType.MOBILE_NETWORK){
@@ -48,7 +53,7 @@ public class NetStateReceiver extends BroadcastReceiver {
                     mNetType = NetworkUtils.NetType.OTHER;
                 }
             }else {
-                isNetAvailable = true;
+                isNetAvailable = false;
             }
             notifyObserver();
         }
@@ -74,6 +79,19 @@ public class NetStateReceiver extends BroadcastReceiver {
             }
         }
     }
+
+    /**
+     * 注册
+     *
+     * @param mContext
+     */
+    public static void registerNetworkStateReceiver(Context mContext) {
+        Log.e(TAG, "registerNetworkStateReceiver: 注册广播" );
+        IntentFilter filter = new IntentFilter();
+        filter.addAction(NET_CHANGE_ACTION);
+        mContext.getApplicationContext().registerReceiver(getInstance(), filter);
+
+    }
     /**
      * 添加网络监听
      *
@@ -84,5 +102,7 @@ public class NetStateReceiver extends BroadcastReceiver {
             mNetChangeObservers = new ArrayList<NetChangeObserver>();
         }
         mNetChangeObservers.add(observer);
+        Log.e(TAG, "registerObserver: 添加观察者" );
+
     }
 }

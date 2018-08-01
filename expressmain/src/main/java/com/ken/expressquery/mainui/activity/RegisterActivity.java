@@ -3,7 +3,6 @@ package com.ken.expressquery.mainui.activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -12,8 +11,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.ken.expressquery.R;
+import com.ken.expressquery.base.BaseActivity;
 import com.ken.expressquery.mainui.MainActivity;
 import com.ken.expressquery.model.User;
+import com.ken.expressquery.network.NetworkUtils;
 import com.ken.expressquery.user.Login;
 import com.ken.expressquery.user.Register;
 
@@ -26,7 +27,7 @@ import butterknife.OnClick;
  * 注册活动界面
  */
 
-public class RegisterActivity extends AppCompatActivity {
+public class RegisterActivity extends BaseActivity {
     private final static String EMPTY = "";
     private final static int PASSWORD_MIX_LENGTH = 6;
     private final static String TAG = RegisterActivity.class.getName();
@@ -54,10 +55,30 @@ public class RegisterActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_register);
+
+    }
+
+    @Override
+    protected int getContentView() {
+        return R.layout.activity_register;
+    }
+
+    @Override
+    protected void init(Bundle savedInstanceState) {
         ButterKnife.bind(this);
+        toolbar.setVisibility(View.GONE);
         user = new User();
         mContext = getApplicationContext();
+    }
+
+    @Override
+    protected void onNetworkConnected(NetworkUtils.NetType type) {
+        showNetErrorView();
+    }
+
+    @Override
+    protected void onNetworkDisConnected() {
+        dismissNetErrorView();
     }
 
 
