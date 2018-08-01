@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.util.Log;
 import android.view.View;
 import android.widget.FrameLayout;
 
@@ -30,6 +31,7 @@ import butterknife.ButterKnife;
  */
 public class MainActivity extends BaseActivity implements
         BottomNavigationBar.OnTabSelectedListener {
+    private static final String TAG = "MainActivity";
     @BindView(R.id.lay_frame)
     FrameLayout layFrame;
     @BindView(R.id.bottom_navigation_bar)
@@ -57,7 +59,7 @@ public class MainActivity extends BaseActivity implements
         toolbar.setVisibility(View.GONE);
         mContext = getApplicationContext();
         initBottomBar();
-
+        debug();
         if (NetworkUtils.isNetworkConnected(this) == null){
             // TODO: 2018/8/1 0001 判断网络类型=
             onNetworkConnected(null);
@@ -154,5 +156,9 @@ public class MainActivity extends BaseActivity implements
         if (ExitPressed.exitPressed(mContext)) {
             finish();
         }
+    }
+
+    void debug(){
+        Log.e(TAG, "debug: 调试热修复1");
     }
 }

@@ -12,8 +12,10 @@ buildscript {
         classpath 'com.jakewharton:butterknife-gradle-plugin:8.4.0'
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
-//        GreenDao本地数据库
-        classpath 'org.greenrobot:greendao-gradle-plugin:3.2.2' // add plugin
+//        GreenDao本地数据库// add plugin
+        classpath 'org.greenrobot:greendao-gradle-plugin:3.2.2'
+        // tinkersupport插件, 其中lastest.release指拉取最新版本，也可以指定明确版本号，例如1.0.4
+        classpath "com.tencent.bugly:tinker-support:1.1.2"
     }
 }
 

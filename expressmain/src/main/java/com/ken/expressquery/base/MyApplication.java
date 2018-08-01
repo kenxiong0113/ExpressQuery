@@ -2,6 +2,7 @@ package com.ken.expressquery.base;
 
 import android.app.Application;
 import android.content.Context;
+import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Environment;
 
@@ -14,6 +15,9 @@ import com.orhanobut.logger.AndroidLogAdapter;
 import com.orhanobut.logger.Logger;
 import com.tencent.bugly.Bugly;
 import com.tencent.bugly.beta.Beta;
+import com.tencent.tinker.loader.app.ApplicationLike;
+import com.tencent.tinker.loader.app.TinkerApplication;
+import com.tencent.tinker.loader.shareutil.ShareConstants;
 import com.uuzuche.lib_zxing.activity.ZXingLibrary;
 
 import cn.bmob.v3.Bmob;
@@ -21,7 +25,10 @@ import es.dmoral.toasty.Toasty;
 
 import static com.ken.expressquery.base.BaseConstant.BMOB_APP_KEY;
 
-
+/**
+ * enableProxyApplication = false 的情况
+ * 这是Tinker推荐的接入方式，一定程度上会增加接入成本，但具有更好的兼容性。
+ * */
 /**
  * * @author by ken on 2018/4/28.
  *  全局基类
@@ -49,10 +56,14 @@ import static com.ken.expressquery.base.BaseConstant.BMOB_APP_KEY;
  * **                        佛祖保佑      镇类之宝                      **
  * ************************************************************************
  */
-
-public class MyApplication extends Application {
+public class MyApplication extends TinkerApplication {
     private static final String TAG = "MyApplication";
 
+    public MyApplication(){
+        super(ShareConstants.TINKER_ENABLE_ALL, "com.ken.expressquery.base.MyAppLike",
+                "com.tencent.tinker.loader.TinkerLoader", false);
+
+    }
     @Override
     protected void attachBaseContext(Context base) {
         super.attachBaseContext(base);
@@ -94,13 +105,14 @@ public class MyApplication extends Application {
      * 设置greenDao
      */
     private void setDatabase() {
-        // 通过 DaoMaster 的内部类 DevOpenHelper，你可以得到一个便利的 SQLiteOpenHelper 对象。
-        // 可能你已经注意到了，你并不需要去编写「CREATE TABLE」这样的 SQL 语句，因为 greenDAO 已经帮你做了。
-        // 注意：默认的 DaoMaster.DevOpenHelper 会在数据库升级时，删除所有的表，意味着这将导致数据的丢失。
-        // 所以，在正式的项目中，你还应该做一层封装，来实现数据库的安全升级。
+        /**
+         * 通过 DaoMaster 的内部类 DevOpenHelper，你可以得到一个便利的 SQLiteOpenHelper 对象。
+         * 可能你已经注意到了，你并不需要去编写「CREATE TABLE」这样的 SQL 语句，因为 greenDAO 已经帮你做了。
+         * 注意：默认的 DaoMaster.DevOpenHelper 会在数据库升级时，删除所有的表，意味着这将导致数据的丢失。
+         * 所以，在正式的项目中，你还应该做一层封装，来实现数据库的安全升级。*/
         mHelper = new DaoMaster.DevOpenHelper(this, "sport-db", null);
         db = mHelper.getWritableDatabase();
-        // 注意：该数据库连接属于 DaoMaster，所以多个 Session 指的是相同的数据库连接。
+        /** 注意：该数据库连接属于 DaoMaster，所以多个 Session 指的是相同的数据库连接。*/
         mDaoMaster = new DaoMaster(db);
         mDaoSession = mDaoMaster.newSession();
     }
@@ -180,14 +192,13 @@ public class MyApplication extends Application {
         Beta.canShowUpgradeActs.add(MainActivity.class);
 
 //        统一初始化Bugly产品，包含Beta
-        Bugly.init(getApplicationContext(), BaseConstant.BUGLY_APP_ID, true);
+//        Bugly.init(getApplicationContext(), BaseConstant.BUGLY_APP_ID, true);
 
     }
 
     @Override
     public void onLowMemory() {
         super.onLowMemory();
-
 
     }
 }
