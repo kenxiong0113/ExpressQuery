@@ -270,6 +270,8 @@ public class SearchExpressFragment extends Fragment implements SearchExpressView
                             name,
                             null,
                             null));
+
+
                 }
                 adapter.notifyDataSetChanged();
             }

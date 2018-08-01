@@ -174,11 +174,6 @@ public class HomeFragment extends Fragment implements View.OnClickListener,
         ExpressQuery.getInstances().query(mDao, null, new ExpressCallBack() {
             @Override
             public void trajectoryInformation(List<ExpressInfo> mList) {
-                if (mList.size() <= 0) {
-                    tvEmpty.setVisibility(View.VISIBLE);
-                }else {
-                    tvEmpty.setVisibility(View.GONE);
-                }
                 for (ExpressInfo info : mList) {
                     if (info.getName() != null) {
                         mExpressInfoList.add(new ExpressInfo(
@@ -188,7 +183,12 @@ public class HomeFragment extends Fragment implements View.OnClickListener,
                                 info.getLogo(),
                                 info.getList()));
                     }
+                }
 
+                if (mExpressInfoList.size() <= 0) {
+                    tvEmpty.setVisibility(View.VISIBLE);
+                }else {
+                    tvEmpty.setVisibility(View.GONE);
                 }
                 adapter.notifyDataSetChanged();
 //                收起下拉刷新
