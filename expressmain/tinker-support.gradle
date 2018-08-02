@@ -34,7 +34,7 @@ tinkerSupport {
     baseApkResourceMapping = "${bakPath}/${baseApkDir}/expressmain-release-R.txt"
 
     // 构建基准包和补丁包都要指定不同的tinkerId，并且必须保证唯一性
-    tinkerId = "express_base-1.0.1"
+    tinkerId = "express_base-1.0.2"
 
     // 构建多渠道补丁时使用
     // buildAllFlavorsDir = "${bakPath}/${baseApkDir}"
@@ -82,7 +82,7 @@ tinkerPatch {
     }
     buildConfig {
         keepDexApply = false
-        tinkerId = "express_base-1.0.1"
+//        tinkerId = "express_base-1.0.1"
         //applyMapping = "${bakPath}/${appName}/app-release-mapping.txt" //  可选，设置mapping文件，建议保持旧apk的proguard混淆方式
         //applyResourceMapping = "${bakPath}/${appName}/app-release-R.txt" // 可选，设置R.txt文件，通过旧apk文件保持ResId的分配
     }

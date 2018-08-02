@@ -31,11 +31,9 @@
 }
 
 # for DexGuard only
--keepresourcexmlelements manifest/application/meta-data@value=GlideModule
+#-keep resourcexmlelements manifest/application/meta-data@value=GlideModule
 
--keep public class android.support.**{
-    *;
-}
+-keep public class android.support.**{ *;}
 #bugly的混淆规则
 -dontwarn com.tencent.bugly.**
 -keep public class com.tencent.bugly.**{*;}
@@ -43,4 +41,4 @@
 -dontwarn com.tencent.tinker.**
 -keep class com.tencent.tinker.** { *; }
 #使用了support-v4包，你还需要配置以下混淆规则：
--keep class android.support.**{*;}
+#-keep class android.support.**{*;}

@@ -6,17 +6,17 @@ import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Environment;
 
+import com.alibaba.android.arouter.launcher.ARouter;
+import com.ken.base.BaseApp;
 import com.ken.expressquery.R;
+import com.ken.expressquery.*;
 import com.ken.expressquery.greendao.DaoMaster;
 import com.ken.expressquery.greendao.DaoSession;
 import com.ken.expressquery.mainui.MainActivity;
 import com.ken.expressquery.network.NetStateReceiver;
 import com.orhanobut.logger.AndroidLogAdapter;
 import com.orhanobut.logger.Logger;
-import com.tencent.bugly.Bugly;
 import com.tencent.bugly.beta.Beta;
-import com.tencent.tinker.loader.app.ApplicationLike;
-import com.tencent.tinker.loader.app.TinkerApplication;
 import com.tencent.tinker.loader.shareutil.ShareConstants;
 import com.uuzuche.lib_zxing.activity.ZXingLibrary;
 
@@ -56,20 +56,8 @@ import static com.ken.expressquery.base.BaseConstant.BMOB_APP_KEY;
  * **                        佛祖保佑      镇类之宝                      **
  * ************************************************************************
  */
-public class MyApplication extends TinkerApplication {
+public class MyApplication extends BaseApp {
     private static final String TAG = "MyApplication";
-
-    public MyApplication(){
-        super(ShareConstants.TINKER_ENABLE_ALL, "com.ken.expressquery.base.MyAppLike",
-                "com.tencent.tinker.loader.TinkerLoader", false);
-
-    }
-    @Override
-    protected void attachBaseContext(Context base) {
-        super.attachBaseContext(base);
-
-    }
-
     /*** 静态单例*/
     public static MyApplication instances;
     private DaoMaster.DevOpenHelper mHelper;
@@ -77,6 +65,11 @@ public class MyApplication extends TinkerApplication {
     private DaoMaster mDaoMaster;
     private DaoSession mDaoSession;
 
+    @Override
+    protected void attachBaseContext(Context base) {
+        super.attachBaseContext(base);
+
+    }
     public static MyApplication getInstances() {
         return instances;
     }
@@ -84,23 +77,26 @@ public class MyApplication extends TinkerApplication {
     @Override
     public void onCreate() {
         super.onCreate();
-        instances = this;
-        NetStateReceiver.registerNetworkStateReceiver(this);
-        initBugly();
-//        初始化扫码库
-        ZXingLibrary.initDisplayOpinion(this);
-//初始化BmobSDK
-        Bmob.initialize(this, BMOB_APP_KEY);
-//        初始化Logger{https://github.com/orhanobut/logger}
-        Logger.addLogAdapter(new AndroidLogAdapter());
+        // 初始化 ARouter
+        if (isDebug()) {           // 这两行必须写在init之前，否则这些配置在init过程中将无效
+            ARouter.openLog();     // 打印日志
+            ARouter.openDebug();   // 开启调试模式(如果在InstantRun模式下运行，必须开启调试模式！线上版本需要关闭,否则有安全风险)
+        }
+        // 初始化组件 Application
+        initModuleApp(this);
 
-//        配置toast
-//        toast颜色可以自定义
-//        具体参考github{https://github.com/GrenderG/Toasty}
-        Toasty.Config.getInstance().apply(); // required
-        setDatabase();
+        // 其他操作
+
+        // 所有 Application 初始化后的操作
+        initModuleData(this);
+
+        instances = this;
+
     }
 
+    private boolean isDebug() {
+        return BuildConfig.DEBUG;
+    }
     /**
      * 设置greenDao
      */
@@ -199,6 +195,31 @@ public class MyApplication extends TinkerApplication {
     @Override
     public void onLowMemory() {
         super.onLowMemory();
+
+    }
+
+    @Override
+    public void initModuleApp(Application application) {
+        NetStateReceiver.registerNetworkStateReceiver(this);
+        initBugly();
+//        初始化扫码库
+        ZXingLibrary.initDisplayOpinion(this);
+//初始化BmobSDK
+        Bmob.initialize(this, BMOB_APP_KEY);
+//        初始化Logger{https://github.com/orhanobut/logger}
+        Logger.addLogAdapter(new AndroidLogAdapter());
+
+//        配置toast
+//        toast颜色可以自定义
+//        具体参考github{https://github.com/GrenderG/Toasty}
+        Toasty.Config.getInstance().apply(); // required
+        setDatabase();
+
+    }
+
+    @Override
+    public void initModuleData(Application application) {
+
 
     }
 }

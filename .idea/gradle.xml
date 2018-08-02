@@ -8,7 +8,10 @@
         <option name="modules">
           <set>
             <option value="$PROJECT_DIR$" />
+            <option value="$PROJECT_DIR$/base" />
+            <option value="$PROJECT_DIR$/componentbase" />
             <option value="$PROJECT_DIR$/expressmain" />
+            <option value="$PROJECT_DIR$/login" />
           </set>
         </option>
         <option name="resolveModulePerSourceSet" value="false" />
