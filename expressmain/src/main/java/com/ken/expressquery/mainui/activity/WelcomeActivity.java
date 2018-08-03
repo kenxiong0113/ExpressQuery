@@ -7,16 +7,14 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 
+import com.alibaba.android.arouter.launcher.ARouter;
 import com.ken.expressquery.R;
-import com.ken.expressquery.base.BaseActivity;
+import com.ken.base.BaseActivity;
 import com.ken.expressquery.mainui.MainActivity;
-import com.ken.expressquery.network.NetworkUtils;
-import com.ken.expressquery.utils.PermissionHelper;
+import com.ken.base.network.NetworkUtils;
+import com.ken.base.utils.PermissionHelper;
 
-import cn.bmob.v3.Bmob;
 import cn.bmob.v3.BmobUser;
-
-import static com.ken.expressquery.base.BaseConstant.BMOB_APP_KEY;
 
 /**
  * @author by ken on 2017/9/11.
@@ -108,7 +106,7 @@ public class WelcomeActivity extends BaseActivity {
             finish();
         } else {
             //缓存用户对象为空时， 可打开用户登录界面…
-            startActivity(new Intent(WelcomeActivity.this, LoginActivity.class));
+            ARouter.getInstance().build("/login/login").navigation();
             finish();
         }
     }

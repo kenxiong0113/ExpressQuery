@@ -1,7 +1,7 @@
 package com.ken.expressquery.dbgreendao.express;
 
-import com.ken.expressquery.greendao.ExpressInfoDao;
-import com.ken.expressquery.model.ExpressInfo;
+import com.ken.base.greendao.ExpressInfoDao;
+import com.ken.base.model.ExpressInfo;
 
 /**
  * 插入快递信息的数据

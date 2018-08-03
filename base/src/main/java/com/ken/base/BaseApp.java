@@ -7,10 +7,6 @@ import com.tencent.tinker.loader.shareutil.ShareConstants;
 
 public abstract class BaseApp extends TinkerApplication {
 
-    public BaseApp(){
-        super(ShareConstants.TINKER_ENABLE_ALL, "com.ken.expressquery.base.MyAppLike",
-                "com.tencent.tinker.loader.TinkerLoader", false);
-    }
     protected BaseApp(int tinkerFlags, String delegateClassName, String loaderClassName, boolean tinkerLoadVerifyFlag) {
         super(tinkerFlags, delegateClassName, loaderClassName, tinkerLoadVerifyFlag);
     }

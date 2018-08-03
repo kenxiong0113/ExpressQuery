@@ -40,5 +40,14 @@
 # tinker混淆规则
 -dontwarn com.tencent.tinker.**
 -keep class com.tencent.tinker.** { *; }
-#使用了support-v4包，你还需要配置以下混淆规则：
-#-keep class android.support.**{*;}
+
+#极光混淆代码
+-dontoptimize
+-dontpreverify
+
+-dontwarn cn.jpush.**
+-keep class cn.jpush.** { *; }
+-keep class * extends cn.jpush.android.helpers.JPushMessageReceiver { *; }
+
+-dontwarn cn.jiguang.**
+-keep class cn.jiguang.** { *; }

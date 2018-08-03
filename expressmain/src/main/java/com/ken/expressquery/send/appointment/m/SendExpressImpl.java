@@ -3,9 +3,9 @@ package com.ken.expressquery.send.appointment.m;
 import android.util.Log;
 
 import com.ken.expressquery.send.appointment.OnSendFinishCallBack;
-import com.ken.expressquery.threadpool.ThreadPoolProxyFactory;
-import com.ken.expressquery.utils.InterceptAddressInfo;
-import com.ken.expressquery.utils.Transform;
+import com.ken.base.threadpool.ThreadPoolProxyFactory;
+import com.ken.base.utils.InterceptAddressInfo;
+import com.ken.base.utils.Transform;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -19,9 +19,9 @@ import java.security.MessageDigest;
 import java.util.HashMap;
 import java.util.Map;
 
-import static com.ken.expressquery.base.BaseConstant.AppKey;
-import static com.ken.expressquery.base.BaseConstant.EBusinessID;
-import static com.ken.expressquery.base.BaseConstant.ReqURL;
+import static com.ken.base.utils.BaseConstant.AppKey;
+import static com.ken.base.utils.BaseConstant.EBusinessID;
+import static com.ken.base.utils.BaseConstant.ReqURL;
 
 /**
  * 预约寄件实现类model层

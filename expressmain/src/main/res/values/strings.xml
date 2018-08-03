@@ -22,10 +22,7 @@
     <string name="password">密码</string>
     <string name="phone">电话</string>
     <string name="email">电子邮箱</string>
-    <string name="login">登 录</string>
-    <string name="register">注册</string>
     <string name="re_password">确认密码</string>
-    <string name="have_username">已有账号，返回登录</string>
     <string name="tourists_login">直接登录</string>
 
     <!--查询快递字符串-->

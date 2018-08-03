@@ -4,7 +4,7 @@ import android.util.Log;
 
 import com.ken.expressquery.management.address.OnAddressFinishCallBack;
 import com.ken.expressquery.management.bean.AddressBook;
-import com.ken.expressquery.model.User;
+import com.ken.base.bean.User;
 
 import java.util.ArrayList;
 import java.util.List;

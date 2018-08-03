@@ -2,22 +2,20 @@ package com.ken.expressquery.search.m;
 
 import android.content.Context;
 import android.util.Log;
-import android.widget.Toast;
 
 import com.ken.expressquery.search.SearchFinishCallback;
-import com.ken.expressquery.threadpool.ThreadPoolProxyFactory;
-import com.ken.expressquery.network.NetworkUtils;
+import com.ken.base.threadpool.ThreadPoolProxyFactory;
 
 import okhttp3.Call;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 
-import static com.ken.expressquery.base.BaseConstant.APP_CODE;
-import static com.ken.expressquery.base.BaseConstant.HEADER;
-import static com.ken.expressquery.base.BaseConstant.HOST;
-import static com.ken.expressquery.base.BaseConstant.PATH;
-import static com.ken.expressquery.base.BaseConstant.VALUES;
+import static com.ken.base.utils.BaseConstant.APP_CODE;
+import static com.ken.base.utils.BaseConstant.HEADER;
+import static com.ken.base.utils.BaseConstant.HOST;
+import static com.ken.base.utils.BaseConstant.PATH;
+import static com.ken.base.utils.BaseConstant.VALUES;
 
 /**
  * 阿里云应用市场，全国物流快递查询（单号识别） 接口

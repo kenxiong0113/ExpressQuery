@@ -11,7 +11,7 @@
             <option value="$PROJECT_DIR$/base" />
             <option value="$PROJECT_DIR$/componentbase" />
             <option value="$PROJECT_DIR$/expressmain" />
-            <option value="$PROJECT_DIR$/login" />
+            <option value="$PROJECT_DIR$/user" />
           </set>
         </option>
         <option name="resolveModulePerSourceSet" value="false" />

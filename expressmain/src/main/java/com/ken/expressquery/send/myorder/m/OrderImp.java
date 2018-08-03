@@ -1,6 +1,6 @@
 package com.ken.expressquery.send.myorder.m;
 
-import com.ken.expressquery.model.User;
+import com.ken.base.bean.User;
 import com.ken.expressquery.send.bean.ResultData;
 import com.ken.expressquery.send.bean.SendExpressOrder;
 import com.ken.expressquery.send.myorder.OnOrderFinishCallback;

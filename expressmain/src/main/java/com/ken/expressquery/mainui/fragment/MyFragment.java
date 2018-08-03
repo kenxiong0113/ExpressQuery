@@ -1,5 +1,7 @@
 package com.ken.expressquery.mainui.fragment;
 
+import android.app.Application;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -10,8 +12,9 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.alibaba.android.arouter.launcher.ARouter;
+import com.ken.expressquery.MyApplication;
 import com.ken.expressquery.R;
-import com.ken.expressquery.mainui.activity.LoginActivity;
 import com.ken.expressquery.management.address.v.ManageAddressActivity;
 import com.tencent.bugly.beta.Beta;
 
@@ -45,7 +48,7 @@ public class MyFragment extends Fragment {
     TextView tvOftenSAddress;
     private View view;
     private BmobUser bmobUser;
-
+    MyApplication mContext;
     public MyFragment() {
     }
 
@@ -68,6 +71,7 @@ public class MyFragment extends Fragment {
         view = inflater.inflate(R.layout.fragment_my, container, false);
         unbinder = ButterKnife.bind(this, view);
         bmobUser = BmobUser.getCurrentUser();
+        mContext = new MyApplication();
         initInfo();
         return view;
     }
@@ -105,7 +109,8 @@ public class MyFragment extends Fragment {
                 if (bmobUser != null) {
                     BmobUser.logOut();
                 }
-                startActivity(new Intent(getActivity(), LoginActivity.class));
+
+                ARouter.getInstance().build("/login/login").navigation();
                 getActivity().finish();
                 break;
             default:

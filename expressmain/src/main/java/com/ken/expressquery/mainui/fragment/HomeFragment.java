@@ -22,17 +22,17 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.ken.expressquery.R;
-import com.ken.expressquery.base.BaseRecyclerAdapter;
-import com.ken.expressquery.base.BaseRecyclerHolder;
-import com.ken.expressquery.base.MyApplication;
+import com.ken.base.utils.BaseRecyclerAdapter;
+import com.ken.base.utils.BaseRecyclerHolder;
+import com.ken.expressquery.MyApplication;
 import com.ken.expressquery.dbgreendao.express.ExpressCallBack;
 import com.ken.expressquery.dbgreendao.express.ExpressQuery;
-import com.ken.expressquery.greendao.ExpressInfoDao;
+import com.ken.base.greendao.ExpressInfoDao;
 import com.ken.expressquery.mainui.activity.SearchResultActivity;
-import com.ken.expressquery.model.ExpressInfo;
+import com.ken.base.model.ExpressInfo;
 import com.ken.expressquery.search.p.SearchPre;
 import com.ken.expressquery.search.v.SearchExpressView;
-import com.ken.expressquery.view.LoadingDialog;
+import com.ken.base.view.LoadingDialog;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -41,9 +41,9 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 
-import static com.ken.expressquery.base.BaseConstant.DISMISS_DIALOG;
-import static com.ken.expressquery.base.BaseConstant.SHOW_DIALOG;
-import static com.ken.expressquery.base.BaseConstant.SHOW_TOAST;
+import static com.ken.base.utils.BaseConstant.DISMISS_DIALOG;
+import static com.ken.base.utils.BaseConstant.SHOW_DIALOG;
+import static com.ken.base.utils.BaseConstant.SHOW_TOAST;
 
 /**
  * @author by ken on 2017/9/10.

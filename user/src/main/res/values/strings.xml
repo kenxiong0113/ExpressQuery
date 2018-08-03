@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">Login</string>
+    <string name="login">登录</string>
+
+
+    <string name="have_username">已有账号，返回登录</string>
+
+    <string name="register">注册</string>
+</resources>

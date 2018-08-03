@@ -2,7 +2,7 @@ package com.ken.expressquery.management.address.m;
 
 import com.ken.expressquery.management.address.OnAddressFinishCallBack;
 import com.ken.expressquery.management.bean.AddressBook;
-import com.ken.expressquery.model.User;
+import com.ken.base.bean.User;
 
 /**
  * 地址管理model层

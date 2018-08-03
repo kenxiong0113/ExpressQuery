@@ -6,11 +6,11 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
 import com.ken.expressquery.R;
-import com.ken.expressquery.base.BaseActivity;
-import com.ken.expressquery.base.BaseRecyclerAdapter;
-import com.ken.expressquery.base.BaseRecyclerHolder;
-import com.ken.expressquery.model.User;
-import com.ken.expressquery.network.NetworkUtils;
+import com.ken.base.BaseActivity;
+import com.ken.base.utils.BaseRecyclerAdapter;
+import com.ken.base.utils.BaseRecyclerHolder;
+import com.ken.base.bean.User;
+import com.ken.base.network.NetworkUtils;
 import com.ken.expressquery.send.bean.ResultData;
 import com.ken.expressquery.send.myorder.p.OrderPer;
 

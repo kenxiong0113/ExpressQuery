@@ -16,11 +16,12 @@ android {
                 arguments = [moduleName: project.getName()]
             }
         }
+        manifestPlaceholders = [
+                JPUSH_PKGNAME : "com.ken.expressquery",
+                JPUSH_APPKEY : "712d827f4d42ae8b4c38a8fa", //JPush上注册的包名对应的appkey.
+                JPUSH_CHANNEL : "developer-default", //暂时填写默认值即可.
+        ]
 
-        ndk {
-            // 设置支持的SO库架构
-            abiFilters 'armeabi' //, 'x86', 'armeabi-v7a', 'x86_64', 'arm64-v8a'
-        }
 
     }
     buildTypes {
@@ -57,14 +58,17 @@ dependencies {
     })
     annotationProcessor 'com.alibaba:arouter-compiler:1.1.4'
     implementation project(':base')
-    runtimeOnly project(':login')
+    runtimeOnly project(':user')
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
     implementation 'com.ashokvarma.android:bottom-navigation-bar:1.3.0'
     implementation 'com.githang:status-bar-compat:latest.integration'
+//    极光推送
+    api 'cn.jiguang.sdk:jpush:3.1.5'
+    api 'cn.jiguang.sdk:jcore:1.2.3'
 }
 greendao {
     schemaVersion 9
-    daoPackage 'com.ken.expressquery.greendao'
+    daoPackage 'com.ken.base.greendao'
     targetGenDir 'src/main/java'
 }
 //检查api过时版本

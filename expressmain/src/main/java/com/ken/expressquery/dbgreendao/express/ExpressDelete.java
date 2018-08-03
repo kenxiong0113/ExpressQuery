@@ -1,6 +1,6 @@
 package com.ken.expressquery.dbgreendao.express;
 
-import com.ken.expressquery.greendao.ExpressInfoDao;
+import com.ken.base.greendao.ExpressInfoDao;
 
 /**
  * 删除本地数据库中的快递历史查询信息

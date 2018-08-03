@@ -18,21 +18,21 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.alibaba.android.arouter.launcher.ARouter;
 import com.ken.expressquery.R;
-import com.ken.expressquery.base.BaseRecyclerAdapter;
-import com.ken.expressquery.base.BaseRecyclerHolder;
-import com.ken.expressquery.base.MyApplication;
+import com.ken.base.utils.BaseRecyclerAdapter;
+import com.ken.base.utils.BaseRecyclerHolder;
+import com.ken.expressquery.MyApplication;
 import com.ken.expressquery.dbgreendao.express.ExpressCallBack;
 import com.ken.expressquery.dbgreendao.express.ExpressDelete;
 import com.ken.expressquery.dbgreendao.express.ExpressQuery;
-import com.ken.expressquery.greendao.ExpressInfoDao;
-import com.ken.expressquery.mainui.activity.LoginActivity;
+import com.ken.base.greendao.ExpressInfoDao;
 import com.ken.expressquery.mainui.activity.SearchResultActivity;
-import com.ken.expressquery.model.ExpressInfo;
+import com.ken.base.model.ExpressInfo;
 import com.ken.expressquery.search.p.SearchPre;
 import com.ken.expressquery.search.v.SearchExpressView;
 import com.ken.expressquery.send.SenderPrimaryActivity;
-import com.ken.expressquery.view.LoadingDialog;
+import com.ken.base.view.LoadingDialog;
 import com.uuzuche.lib_zxing.activity.CaptureActivity;
 import com.uuzuche.lib_zxing.activity.CodeUtils;
 
@@ -46,10 +46,10 @@ import butterknife.Unbinder;
 import cn.bmob.v3.BmobUser;
 import es.dmoral.toasty.Toasty;
 
-import static com.ken.expressquery.base.BaseConstant.DISMISS_DIALOG;
-import static com.ken.expressquery.base.BaseConstant.REQUEST_CODE;
-import static com.ken.expressquery.base.BaseConstant.SHOW_DIALOG;
-import static com.ken.expressquery.base.BaseConstant.SHOW_TOAST;
+import static com.ken.base.utils.BaseConstant.DISMISS_DIALOG;
+import static com.ken.base.utils.BaseConstant.REQUEST_CODE;
+import static com.ken.base.utils.BaseConstant.SHOW_DIALOG;
+import static com.ken.base.utils.BaseConstant.SHOW_TOAST;
 
 /**
  * 查询快递ui界面
@@ -196,7 +196,7 @@ public class SearchExpressFragment extends Fragment implements SearchExpressView
                     startActivity(new Intent(getActivity(), SenderPrimaryActivity.class));
                 } else {
                     Toasty.warning(getActivity(), "请先登录！", Toast.LENGTH_SHORT, false).show();
-                    startActivity(new Intent(getActivity(), LoginActivity.class));
+                    ARouter.getInstance().build("/login/login").navigation();
                     getActivity().finish();
                 }
                 break;

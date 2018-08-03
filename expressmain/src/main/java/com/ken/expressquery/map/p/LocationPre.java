@@ -13,6 +13,7 @@ import com.ken.expressquery.map.v.LocationView;
  * @author by ken on 2018/5/19
  */
 public class LocationPre {
+    private static final String TAG = "LocationPre";
     private LocationView locationView;
     private LocationModel locationModel;
 
@@ -37,7 +38,7 @@ public class LocationPre {
 
             @Override
             public void onLocationFailure(String str) {
-                Log.e("LocationPre定位失败", str);
+                Log.e(TAG, "onLocationFailure: "+str );
                 locationView.onFailure(str);
                 locationView.dismissDialog();
             }

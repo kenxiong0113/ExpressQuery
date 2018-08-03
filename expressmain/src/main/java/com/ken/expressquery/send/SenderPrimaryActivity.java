@@ -15,15 +15,15 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.ken.expressquery.R;
-import com.ken.expressquery.base.BaseActivity;
+import com.ken.base.BaseActivity;
 import com.ken.expressquery.management.address.v.ManageAddressActivity;
 import com.ken.expressquery.map.p.LocationPre;
 import com.ken.expressquery.map.v.LocationView;
-import com.ken.expressquery.network.NetworkUtils;
+import com.ken.base.network.NetworkUtils;
 import com.ken.expressquery.send.adapter.CommonFunctionsAdapter;
 import com.ken.expressquery.send.appointment.v.SendExpressActivity;
 import com.ken.expressquery.send.myorder.v.MyOrderActivity;
-import com.ken.expressquery.view.LoadingDialog;
+import com.ken.base.view.LoadingDialog;
 
 import java.util.ArrayList;
 import java.util.HashMap;

@@ -7,7 +7,7 @@ import com.ken.expressquery.management.address.m.AddressImpl;
 import com.ken.expressquery.management.address.m.AddressModel;
 import com.ken.expressquery.management.address.v.AddressView;
 import com.ken.expressquery.management.bean.AddressBook;
-import com.ken.expressquery.model.User;
+import com.ken.base.bean.User;
 
 import java.util.List;
 

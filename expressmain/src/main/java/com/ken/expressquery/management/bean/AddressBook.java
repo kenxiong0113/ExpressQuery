@@ -1,6 +1,6 @@
 package com.ken.expressquery.management.bean;
 
-import com.ken.expressquery.model.User;
+import com.ken.base.bean.User;
 
 import cn.bmob.v3.BmobObject;
 

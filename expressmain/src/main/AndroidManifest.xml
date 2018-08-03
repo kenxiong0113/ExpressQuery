@@ -45,7 +45,7 @@
 
 
     <application
-        android:name="com.ken.expressquery.base.MyApplication"
+        android:name=".MyApplication"
         android:allowBackup="true"
         android:icon="@mipmap/logo"
         android:label="@string/app_name"
@@ -65,8 +65,6 @@
             android:name="com.amap.api.v2.apikey"
             android:value="084b4e9b07714913fa5d6e114493a2ed" />
 
-        <activity android:name=".mainui.activity.LoginActivity" />
-        <activity android:name=".mainui.activity.RegisterActivity" />
         <!-- 禁止底部导航随键盘弹起 -->
         <activity
             android:name=".mainui.MainActivity"

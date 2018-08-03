@@ -6,7 +6,7 @@
       <module fileurl="file://$PROJECT_DIR$/base/base.iml" filepath="$PROJECT_DIR$/base/base.iml" />
       <module fileurl="file://$PROJECT_DIR$/componentbase/componentbase.iml" filepath="$PROJECT_DIR$/componentbase/componentbase.iml" />
       <module fileurl="file://$PROJECT_DIR$/expressmain/expressmain.iml" filepath="$PROJECT_DIR$/expressmain/expressmain.iml" />
-      <module fileurl="file://$PROJECT_DIR$/login/login.iml" filepath="$PROJECT_DIR$/login/login.iml" />
+      <module fileurl="file://$PROJECT_DIR$/user/user.iml" filepath="$PROJECT_DIR$/user/user.iml" />
     </modules>
   </component>
 </project>

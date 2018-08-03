@@ -1,6 +1,6 @@
 package com.ken.expressquery.dbgreendao.express;
 
-import com.ken.expressquery.model.ExpressInfo;
+import com.ken.base.model.ExpressInfo;
 
 import java.util.List;
 

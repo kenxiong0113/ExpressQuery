@@ -1,6 +1,6 @@
 package com.ken.expressquery.send.result.m;
 
-import com.ken.expressquery.model.User;
+import com.ken.base.bean.User;
 import com.ken.expressquery.send.result.OnResultFinishCallBack;
 
 /**

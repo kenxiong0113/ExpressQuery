@@ -9,15 +9,16 @@ import android.util.Log;
 import android.view.View;
 import android.widget.FrameLayout;
 
+import com.alibaba.android.arouter.facade.annotation.Route;
 import com.ashokvarma.bottomnavigation.BottomNavigationBar;
 import com.ashokvarma.bottomnavigation.BottomNavigationItem;
+import com.ken.base.BaseActivity;
 import com.ken.expressquery.R;
-import com.ken.expressquery.base.BaseActivity;
 import com.ken.expressquery.mainui.fragment.HomeFragment;
 import com.ken.expressquery.mainui.fragment.MyFragment;
 import com.ken.expressquery.mainui.fragment.SearchExpressFragment;
-import com.ken.expressquery.network.NetworkUtils;
-import com.ken.expressquery.utils.ExitPressed;
+import com.ken.base.network.NetworkUtils;
+import com.ken.base.utils.ExitPressed;
 import com.tencent.bugly.beta.Beta;
 
 import java.util.ArrayList;
@@ -29,6 +30,7 @@ import butterknife.ButterKnife;
  * @author by ken on 2018/4/25
  * 活动主界面
  */
+@Route(path = "/main/main")
 public class MainActivity extends BaseActivity implements
         BottomNavigationBar.OnTabSelectedListener {
     private static final String TAG = "MainActivity";
