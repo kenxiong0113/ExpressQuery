@@ -56,6 +56,8 @@ import static com.ken.base.utils.BaseConstant.BMOB_APP_KEY;
  * **                        佛祖保佑      镇类之宝                      **
  * ************************************************************************
  */
+
+//lalala
 public class MyApplication extends BaseApp {
     private static final String TAG = "MyApplication";
     /*** 静态单例*/
