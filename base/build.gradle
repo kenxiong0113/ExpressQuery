@@ -20,6 +20,9 @@ android {
 
     }
 
+
+
+
     buildTypes {
         release {
             minifyEnabled false
@@ -28,6 +31,7 @@ android {
     }
 
 }
+
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
@@ -72,4 +76,13 @@ dependencies {
 // toast库
     api 'com.github.GrenderG:Toasty:1.3.0'
 
+}
+
+//检查api过时版本
+allprojects {
+    gradle.projectsEvaluated {
+        tasks.withType(JavaCompile) {
+            options.compilerArgs << "-Xlint:unchecked" << "-Xlint:deprecation"
+        }
+    }
 }

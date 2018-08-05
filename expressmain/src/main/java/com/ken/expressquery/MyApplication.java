@@ -56,8 +56,6 @@ import static com.ken.base.utils.BaseConstant.BMOB_APP_KEY;
  * **                        佛祖保佑      镇类之宝                      **
  * ************************************************************************
  */
-
-//lalala
 public class MyApplication extends BaseApp {
     private static final String TAG = "MyApplication";
     /*** 静态单例*/
@@ -93,7 +91,6 @@ public class MyApplication extends BaseApp {
         initModuleApp(this);
 
         // 其他操作
-
         // 所有 Application 初始化后的操作
         initModuleData(this);
         //极光推送初始化

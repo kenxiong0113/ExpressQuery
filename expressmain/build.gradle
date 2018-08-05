@@ -71,14 +71,7 @@ greendao {
     daoPackage 'com.ken.base.greendao'
     targetGenDir 'src/main/java'
 }
-//检查api过时版本
-allprojects {
-    gradle.projectsEvaluated {
-        tasks.withType(JavaCompile) {
-            options.compilerArgs << "-Xlint:unchecked" << "-Xlint:deprecation"
-        }
-    }
-}
+
 
 // 依赖插件脚本
 apply from: 'tinker-support.gradle'
