@@ -2,13 +2,9 @@ package com.ken.base.network;
 
 import android.content.Context;
 import android.net.ConnectivityManager;
-import android.net.Network;
 import android.net.NetworkInfo;
-import android.telephony.TelephonyManager;
 import android.util.Log;
 
-import org.json.JSONArray;
-import org.json.JSONException;
 
 /**
  * 检查当前网络状态

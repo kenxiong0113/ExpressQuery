@@ -19,8 +19,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.alibaba.android.arouter.launcher.ARouter;
+
 import com.hjq.permissions.Permission;
 import com.hjq.permissions.XXPermissions;
+
 import com.ken.base.greendao.ExpressInfoDao;
 import com.ken.base.model.ExpressInfo;
 import com.ken.base.utils.BaseRecyclerAdapter;

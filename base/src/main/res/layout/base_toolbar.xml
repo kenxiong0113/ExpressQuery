@@ -16,7 +16,7 @@
             android:textColor="@android:color/white"
             android:layout_gravity="center"
             android:layout_height="wrap_content"
-            android:text="111111"/>
+            android:text="@string/toolbar_name"/>
     </android.support.v7.widget.Toolbar>
     <RelativeLayout
         android:id="@+id/net_error"
@@ -36,7 +36,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
-            android:text="网络连接不可用" />
+            android:text="@string/network_error" />
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
