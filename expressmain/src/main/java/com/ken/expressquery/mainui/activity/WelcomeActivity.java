@@ -2,17 +2,19 @@ package com.ken.expressquery.mainui.activity;
 
 import android.content.Context;
 import android.content.Intent;
-import android.os.Build;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 
 import com.alibaba.android.arouter.launcher.ARouter;
-import com.ken.expressquery.R;
+import com.hjq.permissions.OnPermission;
+import com.hjq.permissions.Permission;
+import com.hjq.permissions.XXPermissions;
 import com.ken.base.BaseActivity;
-import com.ken.expressquery.mainui.MainActivity;
 import com.ken.base.network.NetworkUtils;
-import com.ken.base.utils.PermissionHelper;
+import com.ken.expressquery.R;
+import com.ken.expressquery.mainui.MainActivity;
+
+import java.util.List;
 
 import cn.bmob.v3.BmobUser;
 
@@ -23,9 +25,8 @@ import cn.bmob.v3.BmobUser;
 
 public class WelcomeActivity extends BaseActivity {
     BmobUser bmobUser;
-    private PermissionHelper mPermissionHelper;
     private Context mContext;
-    private String TAG = WelcomeActivity.class.getName();
+    private static final String TAG = "WelcomeActivity";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,30 +42,7 @@ public class WelcomeActivity extends BaseActivity {
     protected void init(Bundle savedInstanceState) {
         toolbar.setVisibility(View.GONE);
         mContext = getApplicationContext();
-        // 当系统为6.0以上时，需要申请权限
-        mPermissionHelper = new PermissionHelper(this);
-        mPermissionHelper.setOnApplyPermissionListener(new PermissionHelper.OnApplyPermissionListener() {
-            @Override
-            public void onAfterApplyAllPermission() {
-                Log.i(TAG, "All of requested permissions has been granted, so run app logic.");
-                runApp();
-            }
-        });
-        if (Build.VERSION.SDK_INT < 23) {
-            // 如果系统版本低于23，直接跑应用的逻辑
-            Log.d(TAG, "The api level of system is lower than 23, so run app logic directly.");
-            runApp();
-        } else {
-            // 如果权限全部申请了，那就直接跑应用逻辑
-            if (mPermissionHelper.isAllRequestedPermissionGranted()) {
-                Log.d(TAG, "All of requested permissions has been granted, so run app logic directly.");
-                runApp();
-            } else {
-                // 如果还有权限为申请，而且系统版本大于23，执行申请权限逻辑
-                Log.i(TAG, "Some of requested permissions hasn't been granted, so apply permissions first.");
-                mPermissionHelper.applyPermissions();
-            }
-        }
+        getPermissions();
     }
 
     @Override
@@ -76,19 +54,6 @@ public class WelcomeActivity extends BaseActivity {
     protected void onNetworkDisConnected() {
 
     }
-
-    @Override
-    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        mPermissionHelper.onRequestPermissionsResult(requestCode, permissions, grantResults);
-    }
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        mPermissionHelper.onActivityResult(requestCode, resultCode, data);
-    }
-
 
     private void runApp() {
         startActivity(new Intent(WelcomeActivity.this, MainActivity.class));
@@ -111,6 +76,26 @@ public class WelcomeActivity extends BaseActivity {
         }
     }
 
+    private void getPermissions() {
+
+        XXPermissions.with(this)
+                .constantRequest() //可设置被拒绝后继续申请，直到用户授权或者永久拒绝
+                //.permission(Permission.REQUEST_INSTALL_PACKAGES, Permission.SYSTEM_ALERT_WINDOW) //支持请求安装权限和悬浮窗权限
+                //支持多个权限组进行请求，不指定则默以清单文件中的危险权限进行请求
+                .permission(Permission.Group.STORAGE, Permission.Group.LOCATION, Permission.Group.CAMERA)
+                .request(new OnPermission() {
+
+                    @Override
+                    public void hasPermission(List<String> granted, boolean isAll) {
+                        runApp();
+                    }
+
+                    @Override
+                    public void noPermission(List<String> denied, boolean quick) {
+                        runApp();
+                    }
+                });
+    }
 
     @Override
     protected void onDestroy() {

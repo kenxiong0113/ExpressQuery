@@ -28,53 +28,27 @@ public class NetworkUtils {
     public static NetType isNetworkConnected(Context context) {
         ConnectivityManager mConnectivityManager = (ConnectivityManager) context
                 .getSystemService(Context.CONNECTIVITY_SERVICE);
-
-
-//        NetworkInfo mNetworkInfo = mConnectivityManager.getActiveNetworkInfo();
-        Network[] networks = mConnectivityManager.getAllNetworks();
-        NetworkInfo mNetworkInfo;
-        for (Network network : networks) {
-            mNetworkInfo = mConnectivityManager.getNetworkInfo(network);
-            if (mNetworkInfo.isConnected()) {
-                Log.e(TAG, "isNetworkConnected: " + mNetworkInfo.toString());
-                Log.e(TAG, "isNetworkConnected: " + mNetworkInfo.getExtraInfo());
-                Log.e(TAG, "isNetworkConnected: " + mNetworkInfo.getSubtype());
-               int i =  TelephonyManager.NETWORK_TYPE_IWLAN;
-                try {
-                    JSONArray array = new JSONArray(mNetworkInfo.toString());
-
-                } catch (JSONException e) {
-                    Log.e(TAG, "isNetworkConnected: 异常" + e.getMessage());
-                    e.printStackTrace();
-                }
-
-
+        NetworkInfo mNetworkInfo = mConnectivityManager.getActiveNetworkInfo();
+        if (mNetworkInfo != null) {
+            Log.e(TAG, "isNetworkConnected: "+mNetworkInfo.getType() );
+            Log.e(TAG, "isNetworkConnected: ConnectivityManager:"+ConnectivityManager.TYPE_WIFI );
+            if (mNetworkInfo.getType() == ConnectivityManager.TYPE_WIFI) {
+                Log.e(TAG, "WIFI可用");
+                return NetType.WIFI;
+            } else if (mNetworkInfo.getType() == ConnectivityManager.TYPE_MOBILE) {
+                Log.e(TAG, "手机移动网可用");
+                return NetType.MOBILE_NETWORK;
+            } else {
+                return NetType.OTHER;
             }
-
+        }else {
+            return null;
         }
-
-
-//        if (mNetworkInfo != null) {
-//            Log.e(TAG, "isNetworkConnected: "+mNetworkInfo.getType() );
-//            Log.e(TAG, "isNetworkConnected: ConnectivityManager:"+ConnectivityManager.TYPE_WIFI );
-//            if (mNetworkInfo.getType() == ConnectivityManager.TYPE_WIFI) {
-//                Log.e(TAG, "WIFI可用");
-//                return NetType.WIFI;
-//            } else if (mNetworkInfo.getType() == ConnectivityManager.TYPE_MOBILE) {
-//                Log.e(TAG, "手机移动网可用");
-//                return NetType.MOBILE_NETWORK;
-//            } else {
-//                return NetType.OTHER;
-//            }
-//        }else {
-//            return null;
-//        }
-        return null;
     }
     /**
      * 网络类型
      */
-    public static enum NetType {
+    public enum NetType {
         /**
          * 网络类型 wifi,移动，其他
          */

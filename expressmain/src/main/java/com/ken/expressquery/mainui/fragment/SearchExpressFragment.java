@@ -19,20 +19,22 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.alibaba.android.arouter.launcher.ARouter;
-import com.ken.expressquery.R;
+import com.hjq.permissions.Permission;
+import com.hjq.permissions.XXPermissions;
+import com.ken.base.greendao.ExpressInfoDao;
+import com.ken.base.model.ExpressInfo;
 import com.ken.base.utils.BaseRecyclerAdapter;
 import com.ken.base.utils.BaseRecyclerHolder;
+import com.ken.base.view.LoadingDialog;
 import com.ken.expressquery.MyApplication;
+import com.ken.expressquery.R;
 import com.ken.expressquery.dbgreendao.express.ExpressCallBack;
 import com.ken.expressquery.dbgreendao.express.ExpressDelete;
 import com.ken.expressquery.dbgreendao.express.ExpressQuery;
-import com.ken.base.greendao.ExpressInfoDao;
 import com.ken.expressquery.mainui.activity.SearchResultActivity;
-import com.ken.base.model.ExpressInfo;
 import com.ken.expressquery.search.p.SearchPre;
 import com.ken.expressquery.search.v.SearchExpressView;
 import com.ken.expressquery.send.SenderPrimaryActivity;
-import com.ken.base.view.LoadingDialog;
 import com.uuzuche.lib_zxing.activity.CaptureActivity;
 import com.uuzuche.lib_zxing.activity.CodeUtils;
 
@@ -188,12 +190,23 @@ public class SearchExpressFragment extends Fragment implements SearchExpressView
                 }
                 break;
             case R.id.img_scan:
-                Intent intent = new Intent(getActivity(), CaptureActivity.class);
-                startActivityForResult(intent, REQUEST_CODE);
+                if (XXPermissions.isHasPermission(mContext, Permission.Group.CAMERA)) {
+                    Intent intent = new Intent(getActivity(), CaptureActivity.class);
+                    startActivityForResult(intent, REQUEST_CODE);
+                } else {
+                    Toasty.warning(mContext, "请先授予相机拍照权限").show();
+                    XXPermissions.gotoPermissionSettings(mContext);
+                }
+
                 break;
             case R.id.img_send_express:
                 if (BmobUser.getCurrentUser() != null) {
-                    startActivity(new Intent(getActivity(), SenderPrimaryActivity.class));
+                    if (XXPermissions.isHasPermission(mContext, Permission.Group.LOCATION)) {
+                        startActivity(new Intent(getActivity(), SenderPrimaryActivity.class));
+                    } else {
+                        Toasty.warning(mContext, "请先授予定位权限").show();
+                    }
+
                 } else {
                     Toasty.warning(getActivity(), "请先登录！", Toast.LENGTH_SHORT, false).show();
                     ARouter.getInstance().build("/login/login").navigation();
@@ -254,9 +267,9 @@ public class SearchExpressFragment extends Fragment implements SearchExpressView
         ExpressQuery.getInstances().query(mDao, null, new ExpressCallBack() {
             @Override
             public void trajectoryInformation(List<ExpressInfo> mList) {
-                if (mList.size() <= 0){
+                if (mList.size() <= 0) {
                     tvEmpty.setVisibility(View.VISIBLE);
-                }else {
+                } else {
                     tvEmpty.setVisibility(View.GONE);
                 }
                 for (ExpressInfo info : mList) {
@@ -322,7 +335,6 @@ public class SearchExpressFragment extends Fragment implements SearchExpressView
         Message message = new Message();
         message.what = SHOW_TOAST;
         handler.sendMessage(message);
-
     }
 
 }
